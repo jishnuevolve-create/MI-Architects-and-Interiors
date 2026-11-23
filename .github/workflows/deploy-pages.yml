@@ -6,6 +6,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # If Pages is still set to "Deploy from a branch", GitHub publishes the raw source
+  # after each push and blanks the site. Re-deploy the built site whenever that happens.
+  page_build:
 
 permissions:
   contents: read
