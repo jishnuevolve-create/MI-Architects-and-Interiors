@@ -65,7 +65,7 @@ export const whatsappLink = (text = '') =>
 export const navLinks = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
-  { id: 'services', label: 'Services' },
   { id: 'projects', label: 'Projects' },
+  { id: 'services', label: 'Services' },
   { id: 'contact', label: 'Contact' },
 ];
