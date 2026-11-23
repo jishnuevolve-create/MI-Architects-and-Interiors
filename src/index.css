@@ -21,7 +21,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 76px;
+    scroll-padding-top: 92px;
     -webkit-text-size-adjust: 100%;
   }
   body {
@@ -32,7 +32,7 @@
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
   ::selection {
     background: var(--color-bronze);
@@ -100,7 +100,7 @@
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    border-radius: 2px;
+    border-radius: 999px;
     transition:
       background-color 0.35s var(--ease-calm),
       color 0.35s var(--ease-calm),

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import Picture from './ui/Picture.jsx';
+import Parallax from './ui/Parallax.jsx';
 import Reveal from './ui/Reveal.jsx';
 import ProjectDetail from './ProjectDetail.jsx';
 import { projects } from '../data/projects.js';
@@ -73,14 +74,16 @@ export default function Projects() {
                   className="group block w-full text-left"
                   aria-label={`View project: ${p.title}`}
                 >
-                  <div className="relative overflow-hidden">
-                    <Picture
-                      name={p.cover}
-                      alt={`${p.title}: ${p.space.toLowerCase()}`}
-                      sizes={pl.sizes}
-                      className={`${pl.ratio} w-full`}
-                      imgClassName="transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:scale-[1.045]"
-                    />
+                  <div className="relative">
+                    <Parallax amount={7} className={`${pl.ratio} w-full`}>
+                      <Picture
+                        name={p.cover}
+                        alt={`${p.title}: ${p.space.toLowerCase()}`}
+                        sizes={pl.sizes}
+                        className="h-full w-full"
+                        imgClassName="transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:scale-[1.045]"
+                      />
+                    </Parallax>
                     <span className="absolute top-4 left-4 bg-ivory/90 px-3 py-1.5 text-[10px] font-semibold tracking-[0.2em] text-charcoal uppercase backdrop-blur-sm">
                       {p.category}
                     </span>

@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import AnnotatedLayer from './ui/AnnotatedImage.jsx';
 import { imageInfo } from './ui/Picture.jsx';
@@ -14,11 +15,24 @@ function srcSet(name) {
 
 export default function Hero() {
   const wide = imageInfo('photos/residence-lounge');
+  const ref = useRef(null);
+  const reduce = useReducedMotion();
+  // As the hero scrolls away: the room eases closer and the copy lifts and fades.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
+  const mediaScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
+  const mediaY = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
+  const copyY = useTransform(scrollYProgress, [0, 0.8], [0, -90]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
 
   return (
-    <section id="home" className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-charcoal text-white">
+    <section id="home" ref={ref} className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-charcoal text-white">
+      {/* Photo and its annotations move together so the callouts stay on their objects. */}
       <motion.div
-        className="absolute inset-0 -z-10"
+        className="absolute inset-0 -z-10 origin-top"
+        style={reduce ? undefined : { scale: mediaScale, y: mediaY }}
+      >
+      <motion.div
+        className="absolute inset-0"
         initial={{ scale: 1.06 }}
         animate={{ scale: 1 }}
         transition={{ duration: 2.4, ease }}
@@ -44,8 +58,12 @@ export default function Hero() {
       <div className="absolute inset-0 hidden md:block">
         <AnnotatedLayer points={heroAnnotations} imgWidth={wide.width} imgHeight={wide.height} delay={1.4} />
       </div>
+      </motion.div>
 
-      <div className="container-x relative w-full pt-32 pb-16 md:pb-20 lg:pb-24">
+      <motion.div
+        className="container-x relative w-full pt-32 pb-16 md:pb-20 lg:pb-24"
+        style={reduce ? undefined : { y: copyY, opacity: copyOpacity }}
+      >
         <div className="max-w-[900px]">
           <motion.p
             className="mb-6 flex items-center gap-3 text-[11px] font-semibold tracking-[0.24em] text-white/80 uppercase"
@@ -99,7 +117,7 @@ export default function Hero() {
             </a>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       <motion.a
         href="#about"
