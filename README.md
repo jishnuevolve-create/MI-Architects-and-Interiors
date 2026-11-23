@@ -54,5 +54,11 @@ Choose one option and put it in a `.env` file (see `.env.example`):
 
 ## Deploying
 
-Any static host works (Netlify, Vercel, Cloudflare Pages, Hostinger). Build command `npm run build`,
+**GitHub Pages (set up):** `.github/workflows/deploy-pages.yml` builds and publishes the site on
+every push to `main`. One-time setting: repo **Settings → Pages → Source: GitHub Actions**.
+To deliver form enquiries there, add `VITE_WEB3FORMS_KEY` (or `VITE_FORMSPREE_ID`) under
+**Settings → Secrets and variables → Actions**. The workflow sets `BASE_PATH` to the repo name,
+since Pages serves the site from `/<repo-name>/`.
+
+Any other static host works (Netlify, Vercel, Cloudflare Pages, Hostinger). Build command `npm run build`,
 output folder `dist`, and add the same environment variables in the host's settings.

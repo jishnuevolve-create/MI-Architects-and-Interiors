@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import manifest from '../../data/image-manifest.json';
+import rawManifest from '../../data/image-manifest.json';
+import { asset } from '../../lib/asset.js';
+
+// Same manifest, with each image path prefixed by the site's base path.
+const manifest = Object.fromEntries(
+  Object.entries(rawManifest).map(([key, entry]) => [key, { ...entry, base: asset(entry.base) }]),
+);
 
 /**
  * Responsive WebP image from the generated manifest.

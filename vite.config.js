@@ -5,14 +5,16 @@ import tailwindcss from '@tailwindcss/vite';
 /**
  * Writes robots.txt and sitemap.xml at build time using SITE_URL (set it in .env or
  * your host's environment, e.g. SITE_URL=https://www.your-domain.com).
- * Also swaps %SITE_URL% placeholders in index.html for absolute Open Graph URLs.
+ * Also swaps %SITE_URL% placeholders in index.html for absolute Open Graph URLs, and
+ * %BASE% for the base path (e.g. "/MI-Architects-and-Interiors" on GitHub Pages).
  */
-function seoFiles(siteUrl) {
+function seoFiles(siteUrl, basePath) {
   const base = (siteUrl || '').replace(/\/$/, '');
+  const prefix = basePath.replace(/\/$/, '');
   return {
     name: 'seo-files',
     transformIndexHtml(html) {
-      return html.replaceAll('%SITE_URL%', base);
+      return html.replaceAll('%SITE_URL%', base || prefix).replaceAll('%BASE%', prefix);
     },
     generateBundle() {
       if (!base) {
@@ -37,7 +39,13 @@ function seoFiles(siteUrl) {
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+  // Sub-folder the site is served from. "/" for a normal domain; the GitHub Pages
+  // workflow sets BASE_PATH=/MI-Architects-and-Interiors/.
+  let basePath = env.BASE_PATH || '/';
+  if (!basePath.startsWith('/')) basePath = `/${basePath}`;
+  if (!basePath.endsWith('/')) basePath = `${basePath}/`;
   return {
-    plugins: [react(), tailwindcss(), seoFiles(env.SITE_URL)],
+    base: basePath,
+    plugins: [react(), tailwindcss(), seoFiles(env.SITE_URL, basePath)],
   };
 });

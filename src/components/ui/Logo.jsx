@@ -1,10 +1,11 @@
 import { site } from '../../data/site.js';
+import { asset } from '../../lib/asset.js';
 
 /** The studio's supplied logo, made transparent (not redrawn). `tone` picks the ink colour. */
 export default function Logo({ tone = 'dark', className = '' }) {
   return (
     <img
-      src={tone === 'light' ? '/brand/logo-light.png' : '/brand/logo-dark.png'}
+      src={asset(tone === 'light' ? '/brand/logo-light.png' : '/brand/logo-dark.png')}
       alt={site.name}
       width="139"
       height="52"
