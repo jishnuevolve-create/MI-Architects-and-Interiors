@@ -7,7 +7,6 @@ import DesignBuild from './components/DesignBuild.jsx';
 import Services from './components/Services.jsx';
 import WhyChooseUs from './components/WhyChooseUs.jsx';
 import Process from './components/Process.jsx';
-import InstagramGallery from './components/InstagramGallery.jsx';
 import QuotationForm from './components/QuotationForm.jsx';
 import Footer from './components/Footer.jsx';
 
@@ -29,7 +28,6 @@ export default function App() {
         <Services />
         <WhyChooseUs />
         <Process />
-        <InstagramGallery />
         <QuotationForm />
       </main>
       <Footer />
