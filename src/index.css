@@ -76,12 +76,21 @@
   }
 
   .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
     font-family: var(--font-sans);
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--color-bronze-deep);
+  }
+  .eyebrow::before {
+    content: '';
+    width: 28px;
+    height: 1.5px;
+    background: var(--color-bronze);
   }
 
   .display {

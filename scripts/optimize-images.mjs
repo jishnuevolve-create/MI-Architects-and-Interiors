@@ -14,7 +14,7 @@ const root = path.resolve(import.meta.dirname, '..');
 const srcRoot = path.join(root, 'assets-src');
 const outRoot = path.join(root, 'public', 'images');
 const manifestPath = path.join(root, 'src', 'data', 'image-manifest.json');
-const TARGET_WIDTHS = [480, 800, 1200, 1600];
+const TARGET_WIDTHS = [480, 800, 1200, 1600, 2000];
 
 fs.mkdirSync(outRoot, { recursive: true });
 const manifest = {};
@@ -39,12 +39,11 @@ for (const folder of folders) {
     const { width, height } = await sharp(input).metadata();
     const widths = TARGET_WIDTHS.filter((w) => w < width * 0.95);
     if (width <= 2000) widths.push(width);
-    else if (!widths.includes(1600)) widths.push(1600);
     for (const w of widths) {
       await sharp(input)
         .rotate()
         .resize({ width: w })
-        .webp({ quality: 80, effort: 5 })
+        .webp({ quality: 84, effort: 5 })
         .toFile(path.join(outRoot, folder, `${name}-${w}.webp`));
     }
     // Tiny blurred placeholder used while the real image loads.

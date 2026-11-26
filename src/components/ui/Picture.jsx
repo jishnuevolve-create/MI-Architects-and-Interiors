@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import rawManifest from '../../data/image-manifest.json';
 import { asset } from '../../lib/asset.js';
 
@@ -25,7 +25,31 @@ export default function Picture({
 }) {
   const entry = manifest[name];
   const [loaded, setLoaded] = useState(false);
+  const [drawn, setDrawn] = useState(0);
   const imgRef = useRef(null);
+  const boxRef = useRef(null);
+  const contain = imgClassName.includes('object-contain');
+
+  // Pick the file by the size the photo is actually drawn at. A cropped (object-cover)
+  // photo is drawn wider than its frame whenever its shape differs, so a frame-based
+  // "sizes" hint makes the browser choose a file that is too small and looks soft.
+  useLayoutEffect(() => {
+    const box = boxRef.current;
+    if (!box || !entry) return;
+    const aspect = entry.width / entry.height;
+    const measure = () => {
+      const w = box.clientWidth;
+      const h = box.clientHeight;
+      if (!w || !h) return; // hidden: wait until it is shown
+      const px = contain ? Math.min(w, h * aspect) : Math.max(w, h * aspect);
+      const next = Math.ceil(px * 1.08); // headroom for hover zooms
+      setDrawn((prev) => (Math.abs(next - prev) > prev * 0.1 ? next : prev));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(box);
+    return () => ro.disconnect();
+  }, [entry, contain]);
 
   // The load event can be missed (cached images, images that finished before React
   // attached its listener). Check the element directly so a downloaded photo always shows.
@@ -43,7 +67,7 @@ export default function Picture({
       img.removeEventListener('load', done);
       img.removeEventListener('error', done);
     };
-  }, [name]);
+  }, [name, drawn]);
 
   if (!entry) {
     return (
@@ -62,6 +86,7 @@ export default function Picture({
 
   return (
     <div
+      ref={boxRef}
       className={`relative overflow-hidden bg-cream ${className}`}
       style={{
         backgroundImage: loaded ? undefined : `url(${entry.placeholder})`,
@@ -72,9 +97,9 @@ export default function Picture({
     >
       <img
         ref={imgRef}
-        src={fallback}
-        srcSet={srcSet}
-        sizes={sizes}
+        src={drawn ? fallback : undefined}
+        srcSet={drawn ? srcSet : undefined}
+        sizes={drawn ? `${drawn}px` : sizes}
         width={entry.width}
         height={entry.height}
         alt={alt}

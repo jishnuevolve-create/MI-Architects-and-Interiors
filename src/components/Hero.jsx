@@ -80,6 +80,19 @@ export default function Hero() {
                 Get a Free Quotation
               </a>
             </motion.div>
+            <motion.ul
+              className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-[13px] font-medium text-ink/80"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.9, delay: 1.1 }}
+            >
+              {['15+ years of practice', '200+ clients', 'In-house furniture factory'].map((t) => (
+                <li key={t} className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-bronze" aria-hidden="true" />
+                  {t}
+                </li>
+              ))}
+            </motion.ul>
           </div>
         </div>
       </div>

@@ -7,7 +7,10 @@ import {
   useScroll,
   useTransform,
 } from 'framer-motion';
+import { ClipboardList, HardHat, KeyRound, PencilRuler, Search } from 'lucide-react';
 import { processSteps } from '../data/content.js';
+
+const stepIcons = [Search, PencilRuler, ClipboardList, HardHat, KeyRound];
 
 const N = processSteps.length;
 const pad = (n) => String(n).padStart(2, '0');
@@ -80,6 +83,7 @@ export default function Process() {
 
             {processSteps.map((s, i) => {
               const state = i < step ? 'done' : i === step ? 'active' : 'next';
+              const Icon = stepIcons[i % stepIcons.length];
               return (
                 <li key={s.title} className="relative" aria-current={state === 'active' ? 'step' : undefined}>
                   <button
@@ -88,13 +92,13 @@ export default function Process() {
                     aria-label={`Step ${i + 1}: ${s.title}`}
                     className={`display relative z-10 flex h-12 w-12 items-center justify-center rounded-full border text-[19px] transition-all duration-500 lg:h-[68px] lg:w-[68px] lg:text-[26px] ${
                       state === 'active'
-                        ? 'scale-110 border-charcoal bg-charcoal text-ivory shadow-[0_0_0_6px_var(--color-ivory),0_0_0_7px_var(--color-bronze)]'
+                        ? 'scale-110 border-espresso bg-espresso text-white shadow-[0_0_0_6px_var(--color-ivory),0_0_0_7px_var(--color-bronze)]'
                         : state === 'done'
                           ? 'border-bronze bg-bronze text-white'
                           : 'border-line bg-ivory text-taupe hover:border-bronze hover:text-bronze-deep'
                     }`}
                   >
-                    {pad(i + 1)}
+                    <Icon size={22} strokeWidth={1.5} className="lg:h-[26px] lg:w-[26px]" />
                   </button>
 
                   {/* Desktop: all four columns, the current one in focus. Mobile: read by screen readers only. */}
@@ -103,7 +107,8 @@ export default function Process() {
                       state === 'active' ? 'lg:opacity-100' : state === 'done' ? 'lg:opacity-50' : 'lg:opacity-30'
                     }`}
                   >
-                    <h3 className="display text-[24px] xl:text-[26px]">{s.title}</h3>
+                    <p className="text-[12px] font-semibold tracking-[0.2em] text-bronze-deep">{pad(i + 1)}</p>
+                    <h3 className="display mt-1 text-[24px] xl:text-[26px]">{s.title}</h3>
                     <p className="mt-3 max-w-[300px] text-[14.5px] leading-[1.7] text-ink">{s.text}</p>
                   </div>
                 </li>
@@ -121,7 +126,8 @@ export default function Process() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
               >
-                <h3 className="display text-[28px] md:text-[34px]">{current.title}</h3>
+                <p className="text-[12px] font-semibold tracking-[0.2em] text-bronze-deep">{pad(step + 1)}</p>
+                <h3 className="display mt-1 text-[28px] md:text-[34px]">{current.title}</h3>
                 <p className="mt-3 max-w-[520px] text-[15.5px] leading-[1.75] text-ink">{current.text}</p>
               </motion.div>
             </AnimatePresence>

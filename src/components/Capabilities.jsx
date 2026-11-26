@@ -26,7 +26,7 @@ export default function Capabilities() {
             <ul className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:col-span-8">
               {services.map((s, i) => (
                 <Reveal as="li" key={s.title} delay={i * 0.06}>
-                  <div className="group relative h-full overflow-hidden rounded-[16px] border border-line bg-ivory">
+                  <div className="group relative h-full overflow-hidden rounded-[16px] border border-line bg-ivory transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1 hover:border-bronze/50 hover:shadow-[0_18px_40px_-24px_rgba(74,51,38,0.45)]">
                     <div className="overflow-hidden">
                       <Picture
                         name={s.image}
