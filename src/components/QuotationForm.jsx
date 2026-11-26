@@ -129,7 +129,7 @@ export default function QuotationForm() {
     }
   }
 
-  const wa = whatsappLink("Hello Miarq Spaces, I'd like a free quotation for my project.");
+  const wa = whatsappLink("Hello MiArq Spaces, I'd like a free quotation for my project.");
 
   return (
     <section id="contact" className="relative overflow-hidden bg-[linear-gradient(180deg,var(--color-ivory)_0%,var(--color-cream)_100%)] py-24 md:py-32 lg:py-40">
@@ -138,7 +138,7 @@ export default function QuotationForm() {
         <div className="lg:col-span-5">
           <Reveal>
             <p className="eyebrow">Free quotation</p>
-            <h2 className="display mt-5 text-[42px] md:text-[58px] lg:text-[64px]">
+            <h2 className="display mt-5 text-[34px] md:text-[44px] lg:text-[46px]">
               Let&rsquo;s Create a Space You&rsquo;ll Love <em className="text-bronze-deep">Coming Home To.</em>
             </h2>
             <p className="mt-7 max-w-[480px] text-[16.5px] leading-[1.75] text-ink">
@@ -193,7 +193,7 @@ export default function QuotationForm() {
                   <span className="flex h-14 w-14 items-center justify-center rounded-full bg-bronze text-white">
                     <Check size={26} strokeWidth={1.6} />
                   </span>
-                  <h3 className="display mt-8 text-[38px] md:text-[44px]">Enquiry received.</h3>
+                  <h3 className="display mt-8 text-[30px] md:text-[36px]">Enquiry received.</h3>
                   <p className="mt-4 max-w-[460px] text-[16.5px] leading-[1.75] text-ink">
                     Thank you for reaching out. We&rsquo;ve received your project enquiry and will get in touch with you soon.
                   </p>
@@ -212,7 +212,7 @@ export default function QuotationForm() {
                   exit={{ opacity: 0 }}
                   aria-describedby="form-note"
                 >
-                  <h3 className="display text-[30px] md:text-[34px]">Request a free quotation</h3>
+                  <h3 className="display text-[26px] md:text-[28px]">Request a free quotation</h3>
                   <p id="form-note" className="mt-2 text-[13px] text-ink/70">
                     Fields marked <span className="text-bronze-deep">*</span> are required. It takes about a minute.
                   </p>

@@ -24,16 +24,9 @@ export const sectors = [
   {
     id: 'corporate',
     cover: 'work/office-reception/01',
-    name: 'Corporate',
+    name: 'Commercial',
     intro: 'Offices, receptions, cabins and boardrooms planned around how teams actually work.',
     clients: ['CBRE', 'Hitachi Energy', 'Voltas', 'Indian Potash Limited'],
-  },
-  {
-    id: 'education',
-    cover: 'work/institute-interiors/01',
-    name: 'Education',
-    intro: 'Meeting rooms, staff areas and public spaces for institutes, built to take daily use.',
-    clients: [],
   },
   {
     id: 'retail',
@@ -43,9 +36,16 @@ export const sectors = [
     clients: ['Calvin Klein', 'Pandora', 'French Connection'],
   },
   {
+    id: 'education',
+    cover: 'work/institute-interiors/01',
+    name: 'Education',
+    intro: 'Meeting rooms, staff areas and public spaces for institutes, built to take daily use.',
+    clients: [],
+  },
+  {
     id: 'health',
     cover: 'work/dental-clinic/01',
-    name: 'Health',
+    name: 'Healthcare',
     intro: 'Clinics and healthcare spaces that feel calm for patients and stay practical for staff.',
     clients: ['Sanjivani Hospital'],
   },

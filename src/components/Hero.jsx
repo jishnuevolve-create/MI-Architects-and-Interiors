@@ -1,141 +1,117 @@
 import { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import AnnotatedLayer from './ui/AnnotatedImage.jsx';
-import { imageInfo } from './ui/Picture.jsx';
-import { heroAnnotations } from '../data/content.js';
-import { site } from '../data/site.js';
+import { ArrowRight, Building2, GraduationCap, Home, ShoppingBag, Stethoscope } from 'lucide-react';
+import Picture from './ui/Picture.jsx';
+import { sectors } from '../data/projects.js';
+import { showSector } from '../lib/sectorEvents.js';
 
 const ease = [0.22, 0.61, 0.36, 1];
-
-function srcSet(name) {
-  const e = imageInfo(name);
-  return e.widths.map((w) => `${e.base}-${w}.webp ${w}w`).join(', ');
-}
+export const sectorIcons = {
+  residential: Home,
+  corporate: Building2,
+  retail: ShoppingBag,
+  education: GraduationCap,
+  health: Stethoscope,
+};
 
 export default function Hero() {
-  const wide = imageInfo('photos/residence-lounge');
   const ref = useRef(null);
   const reduce = useReducedMotion();
-  // As the hero scrolls away: the room eases closer and the copy lifts and fades.
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const mediaScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
-  const mediaY = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
-  const copyY = useTransform(scrollYProgress, [0, 0.8], [0, -90]);
-  const copyOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   return (
-    <section id="home" ref={ref} className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-charcoal text-white">
-      {/* Photo and its annotations move together so the callouts stay on their objects. */}
-      <motion.div
-        className="absolute inset-0 -z-10 origin-top"
-        style={reduce ? undefined : { scale: mediaScale, y: mediaY }}
-      >
-      <motion.div
-        className="absolute inset-0"
-        initial={{ scale: 1.06 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 2.4, ease }}
-      >
-        <picture>
-          <source media="(max-width: 767px)" srcSet={srcSet('photos/residence-lounge-portrait')} sizes="100vw" />
-          <img
-            src={`${wide.base}-1490.webp`}
-            srcSet={srcSet('photos/residence-lounge')}
-            sizes="100vw"
-            width={wide.width}
-            height={wide.height}
-            alt="Living lounge with a book-matched onyx feature wall, brass-inlaid stone panelling and a suspended brass chandelier"
-            fetchPriority="high"
-            decoding="sync"
-            className="h-full w-full object-cover object-[30%_center] md:object-center"
-          />
-        </picture>
-        {/* Readability: darken the lower-left where the text sits, keep the room bright elsewhere. */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,20,18,0.55)_0%,rgba(20,20,18,0)_22%),linear-gradient(20deg,rgba(20,20,18,0.88)_0%,rgba(20,20,18,0.55)_38%,rgba(20,20,18,0)_70%)]" />
-      </motion.div>
-
-      <div className="absolute inset-0 hidden md:block">
-        <AnnotatedLayer points={heroAnnotations} imgWidth={wide.width} imgHeight={wide.height} delay={1.4} />
-      </div>
-      </motion.div>
-
-      <motion.div
-        className="container-x relative w-full pt-32 pb-16 md:pb-20 lg:pb-24"
-        style={reduce ? undefined : { y: copyY, opacity: copyOpacity }}
-      >
-        <div className="max-w-[900px]">
-          <motion.p
-            className="mb-6 flex items-center gap-3 text-[11px] font-semibold tracking-[0.24em] text-white/80 uppercase"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease }}
-          >
-            <span className="h-px w-8 bg-bronze" />
-            Design + Build<span className="hidden sm:inline"> · Turnkey Interiors</span> — {site.address.city}
-          </motion.p>
-
-          <h1 className="display text-[44px] sm:text-[56px] md:text-[64px] lg:text-[76px]">
-            <motion.span
-              className="block"
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.1, delay: 0.45, ease }}
-            >
-              Designed with Intent.
-            </motion.span>
-            <motion.span
-              className="block text-[#e9d9c4] italic"
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.1, delay: 0.62, ease }}
-            >
-              Built to Last.
-            </motion.span>
-          </h1>
-
-          <motion.p
-            className="mt-6 max-w-[480px] text-[16px] leading-relaxed text-white/85 md:text-[17px]"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.85, ease }}
-          >
-            Residential, corporate, education, hospitality, retail and health spaces, designed in our studio and built by our own teams.
-          </motion.p>
-
-          <motion.div
-            className="mt-9 flex flex-col gap-3 sm:flex-row"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 1, ease }}
-          >
-            <a href="#projects" className="btn btn-ghost-light">
-              View Our Projects <ArrowRight size={16} strokeWidth={1.6} className="btn-arrow" />
-            </a>
-            <a href="#contact" className="btn btn-primary">
-              Start Your Project
-            </a>
+    <section id="home" ref={ref} className="relative bg-ivory pt-[72px] md:pt-[84px]">
+      <div className="relative flex flex-col lg:block">
+        {/* Photo with a sweeping arch on its left edge (desktop); full-bleed card on mobile */}
+        <motion.div
+          className="relative order-2 mx-5 mb-6 h-[300px] overflow-hidden rounded-[24px] sm:h-[420px] lg:order-none lg:mb-0 lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:mt-0 lg:h-auto lg:w-[64%] lg:rounded-none lg:rounded-tl-[46%_100%] lg:border-l-[26px] lg:border-cream"
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.2, ease }}
+        >
+          <motion.div className="h-full w-full origin-center" style={reduce ? undefined : { scale: imgScale }}>
+            <Picture
+              name="work/double-height-residence/02"
+              alt="Double-height living room with stone feature walls, layered lighting and a full-height artwork"
+              sizes="(min-width: 1024px) 64vw, 100vw"
+              priority
+              className="h-full w-full"
+            />
           </motion.div>
+        </motion.div>
+        <div className="container-x relative order-1 !max-w-[1440px] pt-8 pb-8 md:py-16 lg:flex lg:min-h-[500px] lg:items-center lg:py-14 xl:min-h-[540px]">
+          <div className="max-w-[560px] lg:max-w-[42%] xl:max-w-[520px]">
+            <motion.h1
+              className="display text-[40px] font-normal text-charcoal sm:text-[50px] lg:text-[50px] xl:text-[58px]"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease }}
+            >
+              Spaces Designed <span className="whitespace-nowrap">with Purpose.</span>
+              <em className="mt-1 block text-bronze-deep">Built with Precision.</em>
+            </motion.h1>
+            <motion.span
+              aria-hidden="true"
+              className="mt-8 block h-[3px] w-20 origin-left bg-bronze"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.9, delay: 0.6, ease }}
+            />
+            <motion.p
+              className="mt-7 max-w-[440px] text-[16px] leading-[1.75] text-ink"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.7, ease }}
+            >
+              Interiors designed in our studio, made in our own factory and built by our own site teams, from
+              Ahmedabad.
+            </motion.p>
+            <motion.div
+              className="mt-9 flex flex-wrap gap-3"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.85, ease }}
+            >
+              <a href="#projects" className="btn btn-dark">
+                Explore Projects <ArrowRight size={16} strokeWidth={1.8} className="btn-arrow" />
+              </a>
+              <a href="#contact" className="btn border border-espresso/30 text-espresso hover:bg-espresso hover:text-white">
+                Get a Free Quotation
+              </a>
+            </motion.div>
+          </div>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.a
-        href="#about"
-        className="absolute right-5 bottom-8 hidden flex-col items-center gap-3 text-[10px] font-semibold tracking-[0.3em] text-white/70 uppercase md:right-10 md:flex"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 1 }}
-        aria-label="Scroll to introduction"
-      >
-        <span className="[writing-mode:vertical-rl]">Scroll</span>
-        <span className="relative h-12 w-px overflow-hidden bg-white/25">
-          <motion.span
-            className="absolute inset-x-0 top-0 h-4 bg-white"
-            animate={{ y: [-16, 48] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </span>
-      </motion.a>
+      {/* Sector strip */}
+      <div className="relative z-10 border-y border-line bg-paper">
+        <ul className="container-x !max-w-[1440px] no-scrollbar flex overflow-x-auto md:grid md:grid-cols-5 md:overflow-visible">
+          {sectors.map((s, i) => {
+            const Icon = sectorIcons[s.id];
+            return (
+              <motion.li
+                key={s.id}
+                className="min-w-[132px] flex-1 md:min-w-0"
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 1 + i * 0.08, ease }}
+              >
+                <button
+                  type="button"
+                  onClick={() => showSector(s.id)}
+                  className={`group flex w-full flex-col items-center gap-3 px-3 py-6 text-center md:py-8 ${
+                    i > 0 ? 'md:border-l md:border-line' : ''
+                  }`}
+                >
+                  <Icon size={30} strokeWidth={1.3} className="text-bronze transition-transform duration-500 group-hover:-translate-y-1" />
+                  <span className="text-[15px] font-semibold text-charcoal md:text-[16.5px]">{s.name}</span>
+                </button>
+              </motion.li>
+            );
+          })}
+        </ul>
+      </div>
     </section>
   );
 }

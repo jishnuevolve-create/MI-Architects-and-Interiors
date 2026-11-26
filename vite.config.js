@@ -18,7 +18,7 @@ function seoFiles(siteUrl, basePath) {
       if (!ctx.bundle) return out;
       // Preload the two fonts used above the fold so headings never flash in a fallback serif.
       const fonts = Object.keys(ctx.bundle).filter((f) =>
-        /(cormorant-garamond-latin-400-normal|manrope-latin-wght-normal)-[\w-]+\.woff2$/.test(f),
+        /(libre-caslon-text-latin-400-normal|manrope-latin-wght-normal)-[\w-]+\.woff2$/.test(f),
       );
       return {
         html: out,

@@ -1,17 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useScroll } from 'framer-motion';
-import { Menu, X, ArrowRight, Phone } from 'lucide-react';
+import { ArrowRight, ChevronDown, Menu, Phone, X } from 'lucide-react';
 import Logo from './ui/Logo.jsx';
 import { navLinks, site } from '../data/site.js';
+import { sectors } from '../data/projects.js';
+import { showSector } from '../lib/sectorEvents.js';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('home');
   const [open, setOpen] = useState(false);
+  const [sectorsOpen, setSectorsOpen] = useState(false);
+  const dropRef = useRef(null);
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -19,12 +23,9 @@ export default function Navbar() {
 
   // Highlight the section currently in view.
   useEffect(() => {
-    // Observe every section so the indicator clears in sections that are not in the menu.
     const sections = [...document.querySelectorAll('main section[id]')];
     const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => e.isIntersecting && setActive(e.target.id));
-      },
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
       { rootMargin: '-45% 0px -50% 0px' },
     );
     sections.forEach((s) => io.observe(s));
@@ -33,54 +34,107 @@ export default function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
-    const onKey = (e) => e.key === 'Escape' && setOpen(false);
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        setSectorsOpen(false);
+      }
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
 
-  const solid = scrolled || open;
+  // Close the sectors menu on outside click.
+  useEffect(() => {
+    if (!sectorsOpen) return;
+    const onDown = (e) => !dropRef.current?.contains(e.target) && setSectorsOpen(false);
+    document.addEventListener('pointerdown', onDown);
+    return () => document.removeEventListener('pointerdown', onDown);
+  }, [sectorsOpen]);
+
+  const pickSector = (id) => {
+    setSectorsOpen(false);
+    setOpen(false);
+    showSector(id);
+  };
 
   return (
     <>
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-5 md:pt-4">
-        <nav
-          aria-label="Main"
-          className={`pointer-events-auto relative mx-auto flex h-[60px] items-center justify-between rounded-full border pr-2 pl-5 transition-[max-width,background-color,border-color,box-shadow] duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)] md:h-[66px] md:pl-7 ${
-            solid
-              ? 'max-w-[1120px] border-line/80 bg-ivory/85 shadow-[0_14px_40px_-18px_rgba(36,37,34,0.35)] backdrop-blur-xl'
-              : 'max-w-[1240px] border-white/20 bg-charcoal/25 backdrop-blur-md'
-          }`}
-        >
+      <header
+        className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,box-shadow,border-color] duration-500 ${
+          scrolled || open
+            ? 'border-line bg-ivory/95 shadow-[0_8px_30px_-20px_rgba(42,33,27,0.45)] backdrop-blur-md'
+            : 'border-transparent bg-ivory'
+        }`}
+      >
+        <nav className="container-x !max-w-[1440px] flex h-[72px] items-center justify-between md:h-[84px]" aria-label="Main">
           <a href="#home" className="shrink-0" onClick={() => setOpen(false)}>
-            <Logo tone={solid ? 'dark' : 'light'} />
+            <Logo tagline />
           </a>
 
-          <ul className="hidden items-center gap-1 lg:flex">
+          <ul className="hidden items-center gap-7 lg:flex xl:gap-9">
             {navLinks.map((l) => {
               const isActive = active === l.id;
-              const tone = solid
-                ? isActive
-                  ? 'text-ivory'
-                  : 'text-ink hover:text-charcoal'
-                : isActive
-                  ? 'text-charcoal'
-                  : 'text-white/85 hover:text-white';
+              if (l.id === 'sectors') {
+                return (
+                  <li key={l.id} ref={dropRef} className="relative">
+                    <button
+                      type="button"
+                      aria-expanded={sectorsOpen}
+                      aria-haspopup="true"
+                      onClick={() => setSectorsOpen((v) => !v)}
+                      className={`relative flex items-center gap-1 py-2 text-[14.5px] font-medium transition-colors ${
+                        isActive ? 'text-charcoal' : 'text-ink hover:text-charcoal'
+                      }`}
+                    >
+                      {l.label}
+                      <ChevronDown size={14} strokeWidth={2} className={`transition-transform ${sectorsOpen ? 'rotate-180' : ''}`} />
+                      {isActive && <motion.span layoutId="nav-active" className="absolute -bottom-0.5 left-0 h-[2px] w-full bg-bronze" />}
+                    </button>
+                    <AnimatePresence>
+                      {sectorsOpen && (
+                        <motion.ul
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 6 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute top-full left-1/2 mt-3 w-56 -translate-x-1/2 overflow-hidden rounded-xl border border-line bg-paper py-2 shadow-[0_20px_50px_-20px_rgba(42,33,27,0.4)]"
+                        >
+                          {sectors.map((s) => (
+                            <li key={s.id}>
+                              <button
+                                type="button"
+                                onClick={() => pickSector(s.id)}
+                                className="flex w-full items-center justify-between px-5 py-2.5 text-left text-[14px] text-ink hover:bg-cream hover:text-charcoal"
+                              >
+                                {s.name}
+                                <ArrowRight size={14} strokeWidth={1.6} className="text-bronze" />
+                              </button>
+                            </li>
+                          ))}
+                        </motion.ul>
+                      )}
+                    </AnimatePresence>
+                  </li>
+                );
+              }
               return (
                 <li key={l.id}>
                   <a
                     href={`#${l.id}`}
                     aria-current={isActive ? 'true' : undefined}
-                    className={`relative block rounded-full px-4 py-2 text-[13px] font-medium tracking-[0.06em] transition-colors duration-300 ${tone}`}
+                    className={`relative py-2 text-[14.5px] font-medium transition-colors ${
+                      isActive ? 'text-charcoal' : 'text-ink hover:text-charcoal'
+                    }`}
                   >
+                    {l.label}
                     {isActive && (
                       <motion.span
                         layoutId="nav-active"
-                        aria-hidden="true"
-                        className={`absolute inset-0 rounded-full ${solid ? 'bg-charcoal' : 'bg-ivory'}`}
+                        className="absolute -bottom-0.5 left-0 h-[2px] w-full bg-bronze"
                         transition={{ type: 'spring', stiffness: 380, damping: 34 }}
                       />
                     )}
-                    <span className="relative">{l.label}</span>
                   </a>
                 </li>
               );
@@ -88,71 +142,76 @@ export default function Navbar() {
           </ul>
 
           <div className="flex items-center gap-2">
-            <a href="#contact" className="btn btn-primary hidden !min-h-[46px] !rounded-full !px-6 sm:inline-flex">
-              Get Free Quotation
+            <a href="#contact" className="btn btn-dark hidden !min-h-[44px] !rounded-full !px-6 !text-[14px] sm:inline-flex">
+              Start Your Project <ArrowRight size={15} strokeWidth={1.8} className="btn-arrow" />
             </a>
             <button
               type="button"
-              className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 lg:hidden ${
-                solid ? 'bg-charcoal text-ivory' : 'bg-white/15 text-white'
-              }`}
+              className="-mr-1 flex h-11 w-11 items-center justify-center rounded-full text-charcoal lg:hidden"
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
               aria-controls="mobile-menu"
               onClick={() => setOpen((v) => !v)}
             >
-              {open ? <X size={20} strokeWidth={1.6} /> : <Menu size={20} strokeWidth={1.6} />}
+              {open ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
             </button>
           </div>
-
-          {/* Reading progress along the bottom edge of the pill */}
-          <motion.span
-            aria-hidden="true"
-            className={`absolute right-10 -bottom-px left-10 h-px origin-left bg-bronze transition-opacity duration-500 ${
-              solid && !open ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{ scaleX: scrollYProgress }}
-          />
         </nav>
+        {/* Reading progress */}
+        <motion.span
+          aria-hidden="true"
+          className="absolute bottom-[-1px] left-0 h-[2px] w-full origin-left bg-bronze"
+          style={{ scaleX: scrollYProgress }}
+        />
       </header>
 
-      {/* Outside <header>: the pill's backdrop-filter would otherwise trap this fixed panel. */}
       <AnimatePresence>
         {open && (
           <motion.div
             id="mobile-menu"
-            className="fixed inset-x-3 top-[80px] bottom-3 z-40 overflow-y-auto rounded-[28px] border border-line bg-ivory shadow-[0_20px_60px_-20px_rgba(36,37,34,0.35)] md:inset-x-5 md:top-[94px] lg:hidden"
-            initial={{ opacity: 0, y: -12, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.98 }}
-            transition={{ duration: 0.3, ease: [0.22, 0.61, 0.36, 1] }}
+            className="fixed inset-x-0 top-[72px] bottom-0 z-40 overflow-y-auto bg-ivory md:top-[84px] lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
           >
-            <div className="flex min-h-full flex-col px-6 pt-3 pb-6">
+            <div className="container-x flex min-h-full flex-col pt-4 pb-8">
               <ul>
-                {navLinks.map((l, i) => (
-                  <motion.li
-                    key={l.id}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.05 + i * 0.05 }}
-                    className="border-b border-line"
-                  >
-                    <a
-                      href={`#${l.id}`}
-                      onClick={() => setOpen(false)}
-                      className="display flex items-center justify-between py-4 text-[32px]"
+                {navLinks
+                  .filter((l) => l.id !== 'sectors')
+                  .map((l, i) => (
+                    <motion.li
+                      key={l.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.04 + i * 0.04 }}
+                      className="border-b border-line"
                     >
-                      {l.label}
-                      <ArrowRight size={18} strokeWidth={1.4} className="text-bronze" />
-                    </a>
-                  </motion.li>
-                ))}
+                      <a href={`#${l.id}`} onClick={() => setOpen(false)} className="display flex items-center justify-between py-4 text-[26px]">
+                        {l.label}
+                        <ArrowRight size={18} strokeWidth={1.4} className="text-bronze" />
+                      </a>
+                    </motion.li>
+                  ))}
               </ul>
-              <div className="mt-auto space-y-3 pt-8">
-                <a href="#contact" onClick={() => setOpen(false)} className="btn btn-primary w-full !rounded-full">
-                  Get Free Quotation
+              <p className="eyebrow mt-8">Sectors</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {sectors.map((s) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => pickSector(s.id)}
+                    className="rounded-full border border-line bg-paper px-4 py-2 text-[14px] text-ink"
+                  >
+                    {s.name}
+                  </button>
+                ))}
+              </div>
+              <div className="mt-auto space-y-3 pt-10">
+                <a href="#contact" onClick={() => setOpen(false)} className="btn btn-dark w-full">
+                  Start Your Project <ArrowRight size={16} strokeWidth={1.8} />
                 </a>
-                <a href={site.phones[0].href} className="btn w-full !rounded-full border border-line text-charcoal">
+                <a href={site.phones[0].href} className="btn w-full border border-line text-charcoal">
                   <Phone size={16} strokeWidth={1.6} /> Call {site.phones[0].label}
                 </a>
               </div>

@@ -1,21 +1,10 @@
 /** Design process — the four stages from the studio's own "Our Approach" page. */
 export const processSteps = [
-  {
-    title: 'Assessment',
-    text: 'We visit the site and go through your brief, how you use the space, your constraints and what matters most.',
-  },
-  {
-    title: 'Vision & goals',
-    text: 'Together we set the design direction, the budget and what a successful result looks like for you.',
-  },
-  {
-    title: 'Design roadmap',
-    text: 'Concepts, space plans, material selections and working drawings, refined with you until every detail is agreed.',
-  },
-  {
-    title: 'Execution & tracking',
-    text: 'Our project team coordinates every trade on site, tracks progress and checks quality through to handover.',
-  },
+  { title: 'Discover', text: 'We visit the site and understand your vision, how the space will be used and what matters most.' },
+  { title: 'Design', text: 'Concepts, layouts, visuals and material selections, refined with you until every detail is agreed.' },
+  { title: 'Plan', text: 'Costing, timelines, working drawings and resources, so the build starts with no open questions.' },
+  { title: 'Build', text: 'Our site teams and factory execute the work, with progress tracking and quality checks throughout.' },
+  { title: 'Deliver', text: 'A final walkthrough with you, snag fixes, and handover of a space that is ready to use.' },
 ];
 
 /** Strengths — drawn from "Why work with us" and the manufacturing pages of the profile. */

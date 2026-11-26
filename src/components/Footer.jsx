@@ -5,18 +5,18 @@ import { navLinks, site, whatsappLink } from '../data/site.js';
 export default function Footer() {
   const wa = whatsappLink();
   return (
-    <footer className="bg-charcoal text-white/75">
+    <footer className="mt-10 bg-espresso text-white/75 md:mt-14">
       <div className="container-x pt-20 pb-10 md:pt-24">
-        <p className="display max-w-[900px] text-[40px] leading-[1.05] text-ivory md:text-[64px]">
-          Creating spaces that <em className="text-[#d9c2a3]">reflect you.</em>
+        <p className="display max-w-[900px] text-[32px] leading-[1.15] text-ivory md:text-[48px]">
+          Designed with purpose. <em className="text-[#e2c393]">Built with precision.</em>
         </p>
 
         <div className="mt-16 grid gap-12 border-t border-white/15 pt-12 md:grid-cols-12">
           <div className="md:col-span-4">
             <Logo tone="light" />
             <p className="mt-6 max-w-[320px] text-[14.5px] leading-[1.75]">
-              Architecture, interiors and fit-out studio in Ahmedabad, with in-house modular furniture manufacturing.
-              Led by {site.founder}.
+              Design, build and manufacture: interiors and turnkey fit-out from Ahmedabad, with our own furniture
+              factory. Led by {site.founder}.
             </p>
           </div>
 

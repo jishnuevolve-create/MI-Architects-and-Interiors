@@ -1,8 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import '@fontsource/cormorant-garamond/400.css';
-import '@fontsource/cormorant-garamond/500.css';
-import '@fontsource/cormorant-garamond/400-italic.css';
+import '@fontsource/libre-caslon-text/latin-400.css';
+import '@fontsource/libre-caslon-text/latin-400-italic.css';
+import '@fontsource/libre-caslon-text/latin-700.css';
 import '@fontsource-variable/manrope';
 import './index.css';
 import App from './App.jsx';

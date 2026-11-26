@@ -28,7 +28,7 @@ export default function Process() {
 
   // Desktop line runs under four equal columns; mobile line runs between evenly spaced circles.
   const lineDesktop = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const lineMobile = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 1 / 3, 2 / 3, 1, 1]);
+  const lineMobile = useTransform(scrollYProgress, (v) => Math.min(1, (v * N) / (N - 1)));
 
   const goTo = (i) => {
     const el = ref.current;
@@ -41,18 +41,18 @@ export default function Process() {
   const current = processSteps[step];
 
   return (
-    <section id="process" ref={ref} className="relative h-[300vh] lg:h-[320vh]">
+    <section id="process" ref={ref} className="relative h-[340vh] lg:h-[360vh]">
       <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-[84px] pb-6 md:pt-24">
         <div className="container-x w-full">
           <div className="grid gap-4 md:grid-cols-12 md:items-end md:gap-8">
             <div className="md:col-span-8">
-              <p className="eyebrow">How we work</p>
-              <h2 className="display mt-4 text-[32px] sm:text-[42px] md:mt-5 md:text-[54px] lg:text-[64px]">
-                From Your First Idea <em className="text-bronze-deep">to Your Finished Space.</em>
+              <p className="eyebrow">Our process</p>
+              <h2 className="display mt-4 text-[30px] sm:text-[38px] md:mt-5 md:text-[46px] lg:text-[52px]">
+                A Seamless Path <em className="text-bronze-deep">from Idea to Handover.</em>
               </h2>
             </div>
             <p className="hidden text-[15.5px] leading-[1.75] text-ink sm:block md:col-span-4">
-              Four clear stages, with one team accountable from the first site visit to handover.
+              Five clear stages, with one team accountable from the first site visit to handover.
             </p>
           </div>
 
@@ -62,7 +62,7 @@ export default function Process() {
             <span>{pad(N)}</span>
           </div>
 
-          <ol className="relative mt-5 flex justify-between lg:mt-8 lg:grid lg:grid-cols-4 lg:gap-10">
+          <ol className="relative mt-5 flex justify-between lg:mt-8 lg:grid lg:grid-cols-5 lg:gap-8">
             {/* Track and fill (mobile: between circle centres) */}
             <span aria-hidden="true" className="absolute top-6 right-6 left-6 h-px bg-line lg:hidden" />
             <motion.span
@@ -103,8 +103,8 @@ export default function Process() {
                       state === 'active' ? 'lg:opacity-100' : state === 'done' ? 'lg:opacity-50' : 'lg:opacity-30'
                     }`}
                   >
-                    <h3 className="display text-[30px] xl:text-[32px]">{s.title}</h3>
-                    <p className="mt-3 max-w-[340px] text-[15px] leading-[1.75] text-ink">{s.text}</p>
+                    <h3 className="display text-[24px] xl:text-[26px]">{s.title}</h3>
+                    <p className="mt-3 max-w-[300px] text-[14.5px] leading-[1.7] text-ink">{s.text}</p>
                   </div>
                 </li>
               );
@@ -121,7 +121,7 @@ export default function Process() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
               >
-                <h3 className="display text-[32px] md:text-[38px]">{current.title}</h3>
+                <h3 className="display text-[28px] md:text-[34px]">{current.title}</h3>
                 <p className="mt-3 max-w-[520px] text-[15.5px] leading-[1.75] text-ink">{current.text}</p>
               </motion.div>
             </AnimatePresence>

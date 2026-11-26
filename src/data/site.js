@@ -4,9 +4,9 @@
  * Update this one file when details change.
  */
 export const site = {
-  name: 'Miarq Spaces',
-  legalName: 'Miarq Spaces Pvt. Ltd.',
-  tagline: 'Design + Build',
+  name: 'MiArq Spaces',
+  legalName: 'MiArq Spaces Pvt. Ltd.',
+  tagline: 'Design · Build · Manufacture',
   founder: 'Ar. Mihir Patel',
   description:
     'Design + build interiors and turnkey fit-out from Ahmedabad, led by Ar. Mihir Patel: residential, corporate, education, hospitality, retail and health projects, with our own design studio, site teams and furniture factory.',
@@ -47,7 +47,7 @@ export const site = {
     { value: '50+', label: 'Onboarded vendors' },
   ],
 
-  sectors: ['Residential', 'Corporate', 'Education', 'Hospitality', 'Retail', 'Health'],
+  sectors: ['Residential', 'Commercial', 'Retail', 'Education', 'Healthcare'],
 
   /** Client and brand names listed in the company profile. Shown as text only. */
   clients: [
@@ -66,7 +66,7 @@ export const navLinks = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Projects' },
-  { id: 'design-build', label: 'Design + Build' },
-  { id: 'services', label: 'Services' },
+  { id: 'capabilities', label: 'Capabilities' },
+  { id: 'sectors', label: 'Sectors' },
   { id: 'contact', label: 'Contact' },
 ];

@@ -2,11 +2,13 @@ import { MotionConfig } from 'framer-motion';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import About from './components/About.jsx';
+import Capabilities from './components/Capabilities.jsx';
+import Sectors from './components/Sectors.jsx';
 import Projects from './components/Projects.jsx';
-import DesignBuild from './components/DesignBuild.jsx';
-import Services from './components/Services.jsx';
-import WhyChooseUs from './components/WhyChooseUs.jsx';
+import Manufacturing from './components/Manufacturing.jsx';
 import Process from './components/Process.jsx';
+import Clients from './components/Clients.jsx';
+import CtaBand from './components/CtaBand.jsx';
 import QuotationForm from './components/QuotationForm.jsx';
 import Footer from './components/Footer.jsx';
 
@@ -23,11 +25,13 @@ export default function App() {
       <main id="main">
         <Hero />
         <About />
+        <Capabilities />
+        <Sectors />
         <Projects />
-        <DesignBuild />
-        <Services />
-        <WhyChooseUs />
+        <Manufacturing />
         <Process />
+        <Clients />
+        <CtaBand />
         <QuotationForm />
       </main>
       <Footer />

@@ -118,7 +118,7 @@ export default function ProjectDetail({ index, onClose, onNavigate }) {
             </div>
 
             <div className="lg:col-span-4">
-              <h2 id="project-title" className="display text-[40px] md:text-[48px]">
+              <h2 id="project-title" className="display text-[30px] md:text-[36px]">
                 {project.title}
               </h2>
               <p className="mt-2 text-[13px] tracking-wide text-ink/70">
@@ -167,7 +167,7 @@ export default function ProjectDetail({ index, onClose, onNavigate }) {
             <ArrowLeft size={18} strokeWidth={1.4} className="shrink-0 transition-transform group-hover:-translate-x-1" />
             <span>
               <span className="block text-[11px] tracking-[0.2em] text-ink/60 uppercase">Previous</span>
-              <span className="display mt-1 block text-[20px] md:text-[24px]">{prev.title}</span>
+              <span className="display mt-1 block text-[17px] md:text-[20px]">{prev.title}</span>
             </span>
           </button>
           <button
@@ -177,7 +177,7 @@ export default function ProjectDetail({ index, onClose, onNavigate }) {
           >
             <span>
               <span className="block text-[11px] tracking-[0.2em] text-ink/60 uppercase">Next</span>
-              <span className="display mt-1 block text-[20px] md:text-[24px]">{next.title}</span>
+              <span className="display mt-1 block text-[17px] md:text-[20px]">{next.title}</span>
             </span>
             <ArrowRight size={18} strokeWidth={1.4} className="shrink-0 transition-transform group-hover:translate-x-1" />
           </button>
