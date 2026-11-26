@@ -13,7 +13,7 @@ const ease = [0.22, 0.61, 0.36, 1];
 /** Sector cover: a photo, or a typographic panel while photos are being added. */
 function SectorCover({ sector, sizes, className = '' }) {
   if (sector.cover) {
-    return <Picture name={sector.cover} alt="" sizes={sizes} className={className} />;
+    return <Picture name={sector.cover} alt="" sizes={sizes} className={className} eager />;
   }
   return (
     <div

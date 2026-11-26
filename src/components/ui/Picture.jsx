@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import rawManifest from '../../data/image-manifest.json';
 import { asset } from '../../lib/asset.js';
 
@@ -20,9 +20,29 @@ export default function Picture({
   className = '',
   imgClassName = '',
   style,
+  eager = false,
 }) {
   const entry = manifest[name];
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef(null);
+
+  // The load event can be missed (cached images, images that finished before React
+  // attached its listener). Check the element directly so a downloaded photo always shows.
+  useEffect(() => {
+    const img = imgRef.current;
+    if (!img) return;
+    if (img.complete && img.naturalWidth > 0) {
+      setLoaded(true);
+      return;
+    }
+    const done = () => setLoaded(true);
+    img.addEventListener('load', done);
+    img.addEventListener('error', done);
+    return () => {
+      img.removeEventListener('load', done);
+      img.removeEventListener('error', done);
+    };
+  }, [name]);
 
   if (!entry) {
     return (
@@ -50,16 +70,18 @@ export default function Picture({
       }}
     >
       <img
+        ref={imgRef}
         src={fallback}
         srcSet={srcSet}
         sizes={sizes}
         width={entry.width}
         height={entry.height}
         alt={alt}
-        loading={priority ? 'eager' : 'lazy'}
+        loading={priority || eager ? 'eager' : 'lazy'}
         decoding={priority ? 'sync' : 'async'}
         fetchPriority={priority ? 'high' : 'auto'}
         onLoad={() => setLoaded(true)}
+        onError={() => setLoaded(true)}
         className={`h-full w-full object-cover transition-opacity duration-700 ${
           loaded || priority ? 'opacity-100' : 'opacity-0'
         } ${imgClassName}`}

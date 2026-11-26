@@ -13,8 +13,21 @@ function seoFiles(siteUrl, basePath) {
   const prefix = basePath.replace(/\/$/, '');
   return {
     name: 'seo-files',
-    transformIndexHtml(html) {
-      return html.replaceAll('%SITE_URL%', base || prefix).replaceAll('%BASE%', prefix);
+    transformIndexHtml(html, ctx) {
+      const out = html.replaceAll('%SITE_URL%', base || prefix).replaceAll('%BASE%', prefix);
+      if (!ctx.bundle) return out;
+      // Preload the two fonts used above the fold so headings never flash in a fallback serif.
+      const fonts = Object.keys(ctx.bundle).filter((f) =>
+        /(cormorant-garamond-latin-400-normal|manrope-latin-wght-normal)-[\w-]+\.woff2$/.test(f),
+      );
+      return {
+        html: out,
+        tags: fonts.map((f) => ({
+          tag: 'link',
+          attrs: { rel: 'preload', as: 'font', type: 'font/woff2', href: `${prefix}/${f}`, crossorigin: '' },
+          injectTo: 'head-prepend',
+        })),
+      };
     },
     generateBundle() {
       if (!base) {

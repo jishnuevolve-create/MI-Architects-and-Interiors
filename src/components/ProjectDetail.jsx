@@ -137,7 +137,21 @@ export default function ProjectDetail({ index, onClose, onNavigate }) {
                 ))}
               </ul>
 
-              <a href="#contact" onClick={onClose} className="btn btn-dark mt-10 w-full">
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  // Close the gallery first (it locks page scrolling), then jump to the pre-filled form.
+                  e.preventDefault();
+                  onClose();
+                  setTimeout(() => {
+                    history.replaceState(null, '', '#contact');
+                    window.dispatchEvent(
+                      new CustomEvent('enquiry:prefill', { detail: { title: project.title, sector: project.sector } }),
+                    );
+                  }, 420);
+                }}
+                className="btn btn-dark mt-10 w-full"
+              >
                 Plan a space like this
               </a>
             </div>

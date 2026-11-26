@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AlertCircle, ArrowRight, Check, Loader2, Mail, MapPin, Phone } from 'lucide-react';
 import Reveal from './ui/Reveal.jsx';
@@ -6,7 +6,17 @@ import { WhatsAppIcon } from './ui/BrandIcons.jsx';
 import { site, whatsappLink } from '../data/site.js';
 import { submitEnquiry } from '../lib/submitEnquiry.js';
 
-const projectTypes = ['Home Interior', 'Apartment Interior', 'Villa Interior', 'Commercial Interior', 'Renovation', 'Other'];
+const projectTypes = ['Residential', 'Corporate / Office', 'Education', 'Hospitality', 'Retail', 'Health / Clinic', 'Renovation', 'Other'];
+
+/** Project type for each portfolio sector, used when a visitor starts from a project. */
+const typeForSector = {
+  residential: 'Residential',
+  corporate: 'Corporate / Office',
+  education: 'Education',
+  hospitality: 'Hospitality',
+  retail: 'Retail',
+  health: 'Health / Clinic',
+};
 const budgets = ['Under ₹5 lakh', '₹5 – 10 lakh', '₹10 – 25 lakh', '₹25 – 50 lakh', 'Above ₹50 lakh', 'Not sure yet'];
 const contactMethods = ['Phone call', ...(site.whatsapp ? ['WhatsApp'] : []), 'Email'];
 
@@ -62,6 +72,25 @@ export default function QuotationForm() {
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [serverError, setServerError] = useState('');
   const formRef = useRef(null);
+
+  // "Plan a space like this" in a project gallery: pre-fill the project and bring the form into view.
+  useEffect(() => {
+    const onPrefill = (e) => {
+      const { title, sector } = e.detail || {};
+      setStatus((s) => (s === 'success' ? 'idle' : s));
+      setValues((v) => ({
+        ...v,
+        projectType: typeForSector[sector] || v.projectType,
+        requirements: v.requirements.trim() ? v.requirements : `I'd like a space like your "${title}" project.`,
+      }));
+      requestAnimationFrame(() => {
+        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        formRef.current?.querySelector('#fullName')?.focus({ preventScroll: true });
+      });
+    };
+    window.addEventListener('enquiry:prefill', onPrefill);
+    return () => window.removeEventListener('enquiry:prefill', onPrefill);
+  }, []);
 
   const set = (k) => (e) => {
     const value = e.target.value;
