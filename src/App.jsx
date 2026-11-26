@@ -3,6 +3,7 @@ import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import About from './components/About.jsx';
 import Projects from './components/Projects.jsx';
+import DesignBuild from './components/DesignBuild.jsx';
 import Services from './components/Services.jsx';
 import WhyChooseUs from './components/WhyChooseUs.jsx';
 import Process from './components/Process.jsx';
@@ -24,6 +25,7 @@ export default function App() {
         <Hero />
         <About />
         <Projects />
+        <DesignBuild />
         <Services />
         <WhyChooseUs />
         <Process />

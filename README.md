@@ -1,4 +1,4 @@
-# MI Architects & Interiors — website
+# Miarq Spaces — website
 
 Single-page site built with React, Vite, Tailwind CSS v4, Framer Motion and Lucide icons.
 

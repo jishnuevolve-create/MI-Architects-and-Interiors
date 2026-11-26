@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, X } from 'lucide-react';
 import Picture from './ui/Picture.jsx';
-import { projects } from '../data/projects.js';
+import { projects, sectorName } from '../data/projects.js';
 
 export default function ProjectDetail({ index, onClose, onNavigate }) {
   const project = projects[index];
@@ -68,7 +68,7 @@ export default function ProjectDetail({ index, onClose, onNavigate }) {
       >
         <div className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-line bg-ivory/95 px-5 backdrop-blur md:px-8">
           <p className="eyebrow">
-            {String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')} — {project.category}
+            {sectorName(project.sector)} — {String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
           </p>
           <button
             type="button"
@@ -97,6 +97,7 @@ export default function ProjectDetail({ index, onClose, onNavigate }) {
                 sizes="(min-width: 1024px) 760px, 100vw"
                 priority
                 className="aspect-[4/3] w-full"
+                imgClassName="!object-contain"
               />
               {project.gallery.length > 1 && (
                 <div className="mt-3 flex gap-3">
@@ -126,7 +127,7 @@ export default function ProjectDetail({ index, onClose, onNavigate }) {
               </p>
               <p className="mt-6 text-[16px] leading-[1.75] text-ink">{project.summary}</p>
 
-              <h3 className="eyebrow mt-10">Interior details</h3>
+              <h3 className="eyebrow mt-10">Key details</h3>
               <ul className="mt-4 border-t border-line">
                 {project.details.map((d) => (
                   <li key={d} className="flex gap-3 border-b border-line py-3 text-[14.5px] text-ink">

@@ -19,7 +19,16 @@ const TARGET_WIDTHS = [480, 800, 1200, 1600];
 fs.mkdirSync(outRoot, { recursive: true });
 const manifest = {};
 
-for (const folder of ['photos', 'instagram']) {
+// Folders to convert. "work/<project>" holds the sector portfolio, one folder per project.
+const folders = ['photos', 'instagram', 'film'];
+const workDir = path.join(srcRoot, 'work');
+if (fs.existsSync(workDir)) {
+  for (const p of fs.readdirSync(workDir)) {
+    if (fs.statSync(path.join(workDir, p)).isDirectory()) folders.push(`work/${p}`);
+  }
+}
+
+for (const folder of folders) {
   const dir = path.join(srcRoot, folder);
   if (!fs.existsSync(dir)) continue;
   fs.mkdirSync(path.join(outRoot, folder), { recursive: true });
@@ -29,9 +38,11 @@ for (const folder of ['photos', 'instagram']) {
     const input = path.join(dir, file);
     const { width, height } = await sharp(input).metadata();
     const widths = TARGET_WIDTHS.filter((w) => w < width * 0.95);
-    widths.push(width);
+    if (width <= 2000) widths.push(width);
+    else if (!widths.includes(1600)) widths.push(1600);
     for (const w of widths) {
       await sharp(input)
+        .rotate()
         .resize({ width: w })
         .webp({ quality: 80, effort: 5 })
         .toFile(path.join(outRoot, folder, `${name}-${w}.webp`));
@@ -73,8 +84,16 @@ if (fs.existsSync(logoSrc)) {
   };
   await makeVariant([36, 37, 34], 'logo-dark.png');
   await makeVariant([255, 255, 255], 'logo-light.png');
-  // Favicon: the monogram (left part of the logo) on ivory.
+  // Monogram only (left part of the logo), used beside the typeset company name.
   const markWidth = Math.round(info.height * 0.95);
+  for (const tone of ['dark', 'light']) {
+    await sharp(path.join(brandOut, `logo-${tone}.png`))
+      .extract({ left: 0, top: 0, width: Math.min(markWidth, info.width), height: info.height })
+      .trim()
+      .png()
+      .toFile(path.join(brandOut, `logo-mark-${tone}.png`));
+  }
+  // Favicon: the monogram on ivory.
   await sharp(trimmed)
     .extract({ left: 0, top: 0, width: Math.min(markWidth, info.width), height: info.height })
     .resize(64, 64, { fit: 'contain', background: '#F7F5F0' })

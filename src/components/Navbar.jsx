@@ -52,7 +52,7 @@ export default function Navbar() {
           }`}
         >
           <a href="#home" className="shrink-0" onClick={() => setOpen(false)}>
-            <Logo tone={solid ? 'dark' : 'light'} className="!h-[38px] md:!h-[44px]" />
+            <Logo tone={solid ? 'dark' : 'light'} />
           </a>
 
           <ul className="hidden items-center gap-1 lg:flex">

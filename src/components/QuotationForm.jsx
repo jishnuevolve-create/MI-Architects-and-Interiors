@@ -100,7 +100,7 @@ export default function QuotationForm() {
     }
   }
 
-  const wa = whatsappLink("Hello MI Architects & Interiors, I'd like a free quotation for my project.");
+  const wa = whatsappLink("Hello Miarq Spaces, I'd like a free quotation for my project.");
 
   return (
     <section id="contact" className="relative overflow-hidden bg-[linear-gradient(180deg,var(--color-ivory)_0%,var(--color-cream)_100%)] py-24 md:py-32 lg:py-40">

@@ -72,7 +72,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.3, ease }}
           >
             <span className="h-px w-8 bg-bronze" />
-            Architecture · Interiors<span className="hidden sm:inline"> · Fit-out</span> — {site.address.city}
+            Design + Build<span className="hidden sm:inline"> · Turnkey Interiors</span> — {site.address.city}
           </motion.p>
 
           <h1 className="display text-[44px] sm:text-[56px] md:text-[64px] lg:text-[76px]">
@@ -82,7 +82,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.1, delay: 0.45, ease }}
             >
-              Spaces That Feel Like Home.
+              Designed with Intent.
             </motion.span>
             <motion.span
               className="block text-[#e9d9c4] italic"
@@ -90,7 +90,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.1, delay: 0.62, ease }}
             >
-              Designed Beyond Expectations.
+              Built to Last.
             </motion.span>
           </h1>
 
@@ -100,7 +100,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.85, ease }}
           >
-            Thoughtfully designed interiors that bring together beauty, functionality, and the way you live.
+            Residential, corporate, education, hospitality, retail and health spaces, designed in our studio and built by our own teams.
           </motion.p>
 
           <motion.div
@@ -110,10 +110,10 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 1, ease }}
           >
             <a href="#projects" className="btn btn-ghost-light">
-              Explore Our Projects <ArrowRight size={16} strokeWidth={1.6} className="btn-arrow" />
+              View Our Projects <ArrowRight size={16} strokeWidth={1.6} className="btn-arrow" />
             </a>
             <a href="#contact" className="btn btn-primary">
-              Get Free Quotation
+              Start Your Project
             </a>
           </motion.div>
         </div>

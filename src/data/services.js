@@ -4,18 +4,18 @@
  */
 export const services = [
   {
-    title: 'Residential & Commercial Design',
+    title: 'Architecture & Interior Design',
     description:
       'Architecture, interior concepts, space planning and design development, worked out around how the space will be used each day.',
-    includes: ['Homes, apartments & villas', 'Offices & workplaces', 'Retail, hospitality & healthcare'],
-    image: 'photos/residence-lounge',
+    includes: ['Homes, villas & apartments', 'Offices & institutes', 'Retail, hospitality & health'],
+    image: 'work/garden-villa/01',
   },
   {
-    title: 'Civil & Interior Works',
+    title: 'Turnkey Civil & Interior Fit-Out',
     description:
-      'Civil works, interior fit-outs and finishing carried out as one coordinated job, so the finished space matches the drawings.',
-    includes: ['Fit-out & finishing', 'Renovation', 'Site execution'],
-    image: 'photos/dining-room',
+      'Civil works, interior fit-out and finishing carried out by our own site teams as one coordinated job, so the finished space matches the drawings.',
+    includes: ['Turnkey fit-out', 'Renovation', 'Site execution'],
+    image: 'work/apartment-handover/01',
   },
   {
     title: 'Modular Kitchens & Wardrobes',
@@ -29,20 +29,20 @@ export const services = [
     description:
       'Dining, lounge and bespoke pieces, plus workstations, conference tables and storage sized to the project.',
     includes: ['Bespoke furniture', 'Workstations & meeting tables', 'Custom manufacturing'],
-    image: 'photos/boardroom',
+    image: 'film/assembly',
   },
   {
     title: 'Building Services',
     description:
       'HVAC, electrical, CCTV, plumbing, fire and IT works coordinated with the interior design instead of added after it.',
     includes: ['HVAC & electrical', 'Plumbing & fire systems', 'IT, CCTV & access control'],
-    image: 'photos/salon-studio',
+    image: 'work/apartment-handover/02',
   },
   {
     title: 'Project Management',
     description:
       'Planning, progress tracking and trade coordination on site, from the first drawing to handover.',
     includes: ['Planning & scheduling', 'Trade coordination', 'Quality review'],
-    image: 'photos/design-studio',
+    image: 'film/design-team',
   },
 ];

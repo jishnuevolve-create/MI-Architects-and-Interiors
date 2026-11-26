@@ -42,19 +42,19 @@ export default function About() {
 
         <div className="lg:col-span-5 lg:pl-8">
           <Reveal>
-            <p className="eyebrow">About the studio</p>
+            <p className="eyebrow">About {site.name}</p>
             <h2 className="display mt-5 text-[40px] md:text-[54px] lg:text-[60px]">
-              Designing Spaces Around the <em className="text-bronze-deep">Way You Live.</em>
+              Design Thinking. <em className="text-bronze-deep">Builder&rsquo;s Discipline.</em>
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-7 text-[17px] leading-[1.75] text-ink">
-              Every space has a story. We bring together thoughtful planning, refined aesthetics, and meaningful
-              details to create interiors that feel personal, functional, and timeless.
+              {site.legalName} is a design + build practice. We plan the space, make the furniture and build it on
+              site, so one team stays accountable for the result from the first drawing to the day you move in.
             </p>
             <p className="mt-5 text-[15px] leading-[1.8] text-ink/80">
-              Led by founder {site.founder}, our Ahmedabad studio handles design, civil and interior works,
-              building services and furniture, with modular furniture made in our own manufacturing unit.
+              Led by founder {site.founder}, our Ahmedabad studio works across residential, corporate, education,
+              hospitality, retail and health projects, with modular furniture made in our own factory.
             </p>
           </Reveal>
 
@@ -70,8 +70,8 @@ export default function About() {
                 </div>
               ))}
             </dl>
-            <a href="#process" className="link-underline mt-9 inline-flex items-center gap-2 text-[14px] font-semibold text-charcoal">
-              Discover Our Approach <ArrowRight size={15} strokeWidth={1.6} />
+            <a href="#design-build" className="link-underline mt-9 inline-flex items-center gap-2 text-[14px] font-semibold text-charcoal">
+              See How We Design + Build <ArrowRight size={15} strokeWidth={1.6} />
             </a>
           </Reveal>
         </div>

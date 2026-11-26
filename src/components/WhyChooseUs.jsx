@@ -4,12 +4,6 @@ import AnnotatedLayer from './ui/AnnotatedImage.jsx';
 import { detailAnnotations, strengths } from '../data/content.js';
 import { site } from '../data/site.js';
 
-const factoryShots = [
-  { name: 'photos/factory-floor', alt: 'Furniture manufacturing unit with panels staged on the factory floor', label: 'Factory floor' },
-  { name: 'photos/factory-panel-saw', alt: 'Team members cutting panels on a sliding panel saw', label: 'Panel processing' },
-  { name: 'photos/factory-finishing', alt: 'Craftsman finishing a furniture panel by hand', label: 'Hand finishing' },
-];
-
 export default function WhyChooseUs() {
   const kitchen = imageInfo('photos/modular-kitchen');
 
@@ -60,30 +54,6 @@ export default function WhyChooseUs() {
               </figcaption>
             </figure>
           </Reveal>
-        </div>
-
-        {/* In-house manufacturing */}
-        <div className="mt-24 border-t border-white/15 pt-14 md:mt-32">
-          <div className="grid gap-10 lg:grid-cols-12">
-            <Reveal className="lg:col-span-4">
-              <p className="eyebrow !text-bronze">In-house manufacturing</p>
-              <h3 className="display mt-4 text-[34px] md:text-[42px]">Made by our own hands.</h3>
-              <p className="mt-5 text-[15px] leading-[1.75] text-white/70">
-                Our furniture unit runs CNC, edge-banding and multi-boring machines. Designers, engineers and
-                production teams work from the same drawings, and our site teams install what we make.
-              </p>
-            </Reveal>
-            <div className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 lg:col-span-8">
-              {factoryShots.map((f, i) => (
-                <Reveal key={f.name} delay={i * 0.08} className="w-[78%] shrink-0 snap-start md:w-auto">
-                  <figure>
-                    <Picture name={f.name} alt={f.alt} sizes="(min-width: 768px) 22vw, 78vw" className="aspect-[3/4] w-full" />
-                    <figcaption className="mt-3 text-[12px] tracking-wide text-white/60">{f.label}</figcaption>
-                  </figure>
-                </Reveal>
-              ))}
-            </div>
-          </div>
         </div>
 
         {/* Sectors and clients from the company profile */}

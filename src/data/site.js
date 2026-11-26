@@ -1,15 +1,15 @@
 /**
- * Central business details. Every value here comes from the supplied company profile
- * (MI Architect & Associates, 2025/26) or the studio's Instagram profile.
+ * Central business details. Values come from the supplied company profile (2025/26),
+ * the studio's Instagram profile, and the company name supplied by the client.
  * Update this one file when details change.
  */
 export const site = {
-  name: 'MI Architects & Interiors',
-  legalName: 'MI Architect & Associates',
-  tagline: 'The Space Makers',
+  name: 'Miarq Spaces',
+  legalName: 'Miarq Spaces Pvt. Ltd.',
+  tagline: 'Design + Build',
   founder: 'Ar. Mihir Patel',
   description:
-    'Architecture, interior design and fit-out studio in Ahmedabad, led by Ar. Mihir Patel. Residential, commercial, retail, hospitality and healthcare interiors with in-house modular furniture manufacturing.',
+    'Design + build interiors and turnkey fit-out from Ahmedabad, led by Ar. Mihir Patel: residential, corporate, education, hospitality, retail and health projects, with our own design studio, site teams and furniture factory.',
 
   phones: [
     { label: '+91 99044 49410', href: 'tel:+919904449410' },
@@ -47,7 +47,7 @@ export const site = {
     { value: '50+', label: 'Onboarded vendors' },
   ],
 
-  sectors: ['Residential', 'Commercial', 'Retail', 'Hospitality', 'Healthcare'],
+  sectors: ['Residential', 'Corporate', 'Education', 'Hospitality', 'Retail', 'Health'],
 
   /** Client and brand names listed in the company profile. Shown as text only. */
   clients: [
@@ -66,6 +66,7 @@ export const navLinks = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Projects' },
+  { id: 'design-build', label: 'Design + Build' },
   { id: 'services', label: 'Services' },
   { id: 'contact', label: 'Contact' },
 ];
