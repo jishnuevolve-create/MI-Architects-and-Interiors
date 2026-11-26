@@ -36,13 +36,6 @@ export const sectors = [
     clients: [],
   },
   {
-    id: 'hospitality',
-    cover: null,
-    name: 'Hospitality',
-    intro: 'Guest-facing spaces where first impressions, durability and quick turnaround all matter.',
-    clients: ['OYO'],
-  },
-  {
     id: 'retail',
     cover: 'work/laundry-studio/01',
     name: 'Retail',

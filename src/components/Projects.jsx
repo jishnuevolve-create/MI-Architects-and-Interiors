@@ -77,7 +77,7 @@ export default function Projects() {
           <Reveal className="md:col-span-7">
             <p className="eyebrow">Projects · Sector-wise presence</p>
             <h2 className="display mt-5 text-[40px] md:text-[60px] lg:text-[72px]">
-              Six Sectors. <em className="text-bronze-deep">Designed and Built.</em>
+              Five Sectors. <em className="text-bronze-deep">Designed and Built.</em>
             </h2>
           </Reveal>
           <Reveal delay={0.1} className="md:col-span-5">
@@ -110,7 +110,12 @@ export default function Projects() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '0px 0px -10% 0px' }}
                 transition={{ duration: 0.8, delay: i * 0.06, ease }}
-                className={`group relative isolate aspect-[4/3] overflow-hidden rounded-[20px] text-left text-white transition-[flex-grow,box-shadow] duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)] sm:aspect-[5/4] lg:aspect-auto lg:h-full lg:min-w-0 ${
+                className={`group relative isolate aspect-[4/3] overflow-hidden ${
+                  // Odd number of sectors: the last tile spans the two-column phone grid.
+                  sectors.length % 2 && i === sectors.length - 1
+                    ? 'col-span-2 !aspect-[2/1] sm:col-span-1 sm:!aspect-[5/4] lg:!aspect-auto'
+                    : ''
+                } rounded-[20px] text-left text-white transition-[flex-grow,box-shadow] duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)] sm:aspect-[5/4] lg:aspect-auto lg:h-full lg:min-w-0 ${
                   isActive
                     ? 'shadow-[0_0_0_2px_var(--color-bronze)] lg:flex-[3.2]'
                     : 'lg:flex-1 lg:hover:flex-[1.35]'
