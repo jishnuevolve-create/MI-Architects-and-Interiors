@@ -21,7 +21,7 @@ export default function Hero() {
   const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   return (
-    <section id="home" ref={ref} className="relative bg-ivory pt-[72px] md:pt-[84px]">
+    <section id="home" ref={ref} className="relative bg-ivory pt-[84px] md:pt-[100px]">
       <div className="relative flex flex-col lg:block">
         {/* Photo with a sweeping arch on its left edge (desktop); full-bleed card on mobile */}
         <motion.div

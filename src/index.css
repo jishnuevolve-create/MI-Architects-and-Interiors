@@ -24,7 +24,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 84px;
+    scroll-padding-top: 96px;
     -webkit-text-size-adjust: 100%;
   }
   body {

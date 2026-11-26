@@ -60,14 +60,15 @@ export default function Navbar() {
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,box-shadow,border-color] duration-500 ${
-          scrolled || open
-            ? 'border-line bg-ivory/95 shadow-[0_8px_30px_-20px_rgba(42,33,27,0.45)] backdrop-blur-md'
-            : 'border-transparent bg-ivory'
-        }`}
-      >
-        <nav className="container-x !max-w-[1440px] flex h-[72px] items-center justify-between md:h-[84px]" aria-label="Main">
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-5 md:pt-4">
+        <nav
+          aria-label="Main"
+          className={`pointer-events-auto relative mx-auto flex h-[64px] max-w-[1400px] items-center justify-between rounded-full border pr-2 pl-5 backdrop-blur-xl transition-[background-color,box-shadow,border-color] duration-500 md:h-[72px] md:pr-3 md:pl-7 ${
+            scrolled || open
+              ? 'border-line bg-paper/92 shadow-[0_16px_40px_-20px_rgba(42,33,27,0.4)]'
+              : 'border-line/70 bg-paper/80 shadow-[0_10px_30px_-24px_rgba(42,33,27,0.35)]'
+          }`}
+        >
           <a href="#home" className="shrink-0" onClick={() => setOpen(false)}>
             <Logo tagline />
           </a>
@@ -142,7 +143,7 @@ export default function Navbar() {
           </ul>
 
           <div className="flex items-center gap-2">
-            <a href="#contact" className="btn btn-dark hidden !min-h-[44px] !rounded-full !px-6 !text-[14px] sm:inline-flex">
+            <a href="#contact" className="btn btn-dark hidden !min-h-[48px] !rounded-full !px-6 !text-[14px] sm:inline-flex">
               Start Your Project <ArrowRight size={15} strokeWidth={1.8} className="btn-arrow" />
             </a>
             <button
@@ -156,26 +157,28 @@ export default function Navbar() {
               {open ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
             </button>
           </div>
+          {/* Reading progress along the bottom edge of the bar */}
+          <motion.span
+            aria-hidden="true"
+            className={`absolute right-10 -bottom-px left-10 h-[2px] origin-left rounded-full bg-bronze transition-opacity duration-500 ${
+              scrolled && !open ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{ scaleX: scrollYProgress }}
+          />
         </nav>
-        {/* Reading progress */}
-        <motion.span
-          aria-hidden="true"
-          className="absolute bottom-[-1px] left-0 h-[2px] w-full origin-left bg-bronze"
-          style={{ scaleX: scrollYProgress }}
-        />
       </header>
 
       <AnimatePresence>
         {open && (
           <motion.div
             id="mobile-menu"
-            className="fixed inset-x-0 top-[72px] bottom-0 z-40 overflow-y-auto bg-ivory md:top-[84px] lg:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            className="fixed inset-x-3 top-[84px] bottom-3 z-40 overflow-y-auto rounded-[28px] border border-line bg-paper shadow-[0_24px_60px_-24px_rgba(42,33,27,0.4)] md:inset-x-5 md:top-[100px] lg:hidden"
+            initial={{ opacity: 0, y: -10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: 0.25 }}
           >
-            <div className="container-x flex min-h-full flex-col pt-4 pb-8">
+            <div className="flex min-h-full flex-col px-6 pt-3 pb-6">
               <ul>
                 {navLinks
                   .filter((l) => l.id !== 'sectors')
