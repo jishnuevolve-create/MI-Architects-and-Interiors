@@ -78,9 +78,9 @@ export default function Picture({
         width={entry.width}
         height={entry.height}
         alt={alt}
-        loading={priority || eager ? 'eager' : 'lazy'}
+        loading="eager"
         decoding={priority ? 'sync' : 'async'}
-        fetchPriority={priority ? 'high' : 'auto'}
+        fetchPriority={priority ? 'high' : eager ? 'auto' : 'low'}
         onLoad={() => setLoaded(true)}
         onError={() => setLoaded(true)}
         className={`h-full w-full object-cover ${imgClassName}`}
