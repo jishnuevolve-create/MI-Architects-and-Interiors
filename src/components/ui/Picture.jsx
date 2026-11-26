@@ -8,7 +8,8 @@ const manifest = Object.fromEntries(
 );
 
 /**
- * Responsive WebP image from the generated manifest.
+ * Responsive WebP image from the generated manifest. The photo is always visible; a tiny
+ * blurred preview sits behind it only while it downloads, and is removed once it has loaded.
  * `name` is a manifest key such as "photos/living-room".
  * If the key is missing (photo not added yet) a clearly labelled placeholder is shown.
  */
@@ -82,9 +83,7 @@ export default function Picture({
         fetchPriority={priority ? 'high' : 'auto'}
         onLoad={() => setLoaded(true)}
         onError={() => setLoaded(true)}
-        className={`h-full w-full object-cover transition-opacity duration-700 ${
-          loaded || priority ? 'opacity-100' : 'opacity-0'
-        } ${imgClassName}`}
+        className={`h-full w-full object-cover ${imgClassName}`}
       />
     </div>
   );
