@@ -8,6 +8,75 @@ import { strengths } from '../../data/content.js';
 
 const ease = [0.22, 0.61, 0.36, 1];
 
+const pillars = [
+  {
+    word: 'Design',
+    image: 'film/drawings',
+    alt: 'A designer preparing working drawings',
+    text: 'Space planning, concepts, material selection and working drawings, made in our own studio.',
+  },
+  {
+    word: 'Build',
+    image: 'work/stone-and-timber-home/04',
+    alt: 'Timber-clad walls and stone planter wall finished on site',
+    text: 'Civil works, interior fit-out and building services, carried out by our own site teams.',
+  },
+  {
+    word: 'Manufacture',
+    image: 'film/panel-saw',
+    alt: 'Panels being cut in our furniture factory',
+    text: 'Kitchens, wardrobes and furniture made in our own factory, then installed by our team.',
+  },
+];
+
+/** Design · Build · Manufacture: the three disciplines in the company's name, as tall photo cards. */
+export function Pillars() {
+  return (
+    <section className="py-14 md:py-20">
+      <div className="container-x !max-w-[1440px]">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <Reveal>
+            <p className="eyebrow">What we do</p>
+            <h2 className="display mt-5 text-[34px] md:text-[48px]">
+              Three Disciplines. <em className="text-bronze-deep">One Company.</em>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="max-w-[400px] text-[15.5px] leading-[1.75] text-ink">
+              Most projects need a designer, a contractor and a furniture maker. With us, they are the same team.
+            </p>
+          </Reveal>
+        </div>
+
+        <ul className="mt-10 grid gap-4 md:mt-12 md:grid-cols-3 md:gap-5">
+          {pillars.map((p, i) => (
+            <Reveal as="li" key={p.word} delay={i * 0.1}>
+              <article className="group relative isolate flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-[28px] p-7 text-white md:aspect-[3/4] md:p-8">
+                <div className="absolute inset-0 -z-20">
+                  <Picture
+                    name={p.image}
+                    alt={p.alt}
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="h-full w-full"
+                    imgClassName="transition-transform duration-[1600ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:scale-[1.07]"
+                  />
+                </div>
+                <span className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(30,21,16,0.15)_0%,rgba(30,21,16,0.25)_45%,rgba(30,21,16,0.88)_100%)] transition-colors duration-700 group-hover:bg-[rgba(30,21,16,0.55)]" />
+                <span className="absolute top-7 left-7 display text-[44px] leading-none text-[#e2c393] md:top-8 md:left-8">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h3 className="display text-[36px] leading-none md:text-[32px] lg:text-[38px] xl:text-[44px]">{p.word}</h3>
+                <span className="mt-5 block h-px w-12 bg-[#e2c393] transition-all duration-700 group-hover:w-24" />
+                <p className="mt-5 max-w-[320px] text-[15px] leading-[1.7] text-white/85">{p.text}</p>
+              </article>
+            </Reveal>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 /** Story: sticky heading and photo collage beside the long-form text. */
 export function Story() {
   return (
