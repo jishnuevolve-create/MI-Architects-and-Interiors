@@ -8,7 +8,6 @@ import Manufacturing from './components/Manufacturing.jsx';
 import Process from './components/Process.jsx';
 import Clients from './components/Clients.jsx';
 import CtaBand from './components/CtaBand.jsx';
-import QuotationForm from './components/QuotationForm.jsx';
 import Footer from './components/Footer.jsx';
 
 export default function App() {
@@ -30,7 +29,6 @@ export default function App() {
         <Process />
         <Clients />
         <CtaBand />
-        <QuotationForm />
       </main>
       <Footer />
     </MotionConfig>

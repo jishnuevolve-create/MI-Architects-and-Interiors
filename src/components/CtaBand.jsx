@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import Parallax from './ui/Parallax.jsx';
 import Picture from './ui/Picture.jsx';
 import Reveal from './ui/Reveal.jsx';
+import { CONTACT_URL } from '../lib/links.js';
 
 export default function CtaBand() {
   return (
@@ -21,7 +22,7 @@ export default function CtaBand() {
                 Share your requirement and our team will get in touch with a tailored solution.
               </p>
             </div>
-            <a href="#contact" className="btn shrink-0 !rounded-full bg-paper text-espresso hover:bg-[#e9dcc8]">
+            <a href={CONTACT_URL} className="btn shrink-0 !rounded-full bg-paper text-espresso hover:bg-[#e9dcc8]">
               Start Your Project <ArrowRight size={16} strokeWidth={1.8} className="btn-arrow" />
             </a>
           </Reveal>

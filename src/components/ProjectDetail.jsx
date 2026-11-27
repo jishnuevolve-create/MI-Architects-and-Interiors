@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, X } from 'lucide-react';
 import Picture from './ui/Picture.jsx';
 import { projects, sectorName } from '../data/projects.js';
+import { contactLink } from '../lib/links.js';
 
 export default function ProjectDetail({ index, onClose, onNavigate }) {
   const project = projects[index];
@@ -137,21 +138,7 @@ export default function ProjectDetail({ index, onClose, onNavigate }) {
                 ))}
               </ul>
 
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  // Close the gallery first (it locks page scrolling), then jump to the pre-filled form.
-                  e.preventDefault();
-                  onClose();
-                  setTimeout(() => {
-                    history.replaceState(null, '', '#contact');
-                    window.dispatchEvent(
-                      new CustomEvent('enquiry:prefill', { detail: { title: project.title, sector: project.sector } }),
-                    );
-                  }, 420);
-                }}
-                className="btn btn-dark mt-10 w-full"
-              >
+              <a href={contactLink({ project: project.title, sector: project.sector })} className="btn btn-dark mt-10 w-full">
                 Plan a space like this
               </a>
             </div>

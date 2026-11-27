@@ -73,23 +73,17 @@ export default function QuotationForm() {
   const [serverError, setServerError] = useState('');
   const formRef = useRef(null);
 
-  // "Plan a space like this" in a project gallery: pre-fill the project and bring the form into view.
+  // Arriving from "Plan a space like this" (?project=…&sector=…): pre-fill the project.
   useEffect(() => {
-    const onPrefill = (e) => {
-      const { title, sector } = e.detail || {};
-      setStatus((s) => (s === 'success' ? 'idle' : s));
-      setValues((v) => ({
-        ...v,
-        projectType: typeForSector[sector] || v.projectType,
-        requirements: v.requirements.trim() ? v.requirements : `I'd like a space like your "${title}" project.`,
-      }));
-      requestAnimationFrame(() => {
-        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        formRef.current?.querySelector('#fullName')?.focus({ preventScroll: true });
-      });
-    };
-    window.addEventListener('enquiry:prefill', onPrefill);
-    return () => window.removeEventListener('enquiry:prefill', onPrefill);
+    const q = new URLSearchParams(window.location.search);
+    const title = q.get('project');
+    const sector = q.get('sector');
+    if (!title && !sector) return;
+    setValues((v) => ({
+      ...v,
+      projectType: typeForSector[sector] || v.projectType,
+      requirements: title ? `I'd like a space like your "${title}" project.` : v.requirements,
+    }));
   }, []);
 
   const set = (k) => (e) => {
@@ -132,15 +126,15 @@ export default function QuotationForm() {
   const wa = whatsappLink("Hello MiArq Spaces, I'd like a free quotation for my project.");
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-[linear-gradient(180deg,var(--color-ivory)_0%,var(--color-cream)_100%)] py-24 md:py-32 lg:py-40">
+    <section id="contact" className="relative overflow-hidden bg-[linear-gradient(180deg,var(--color-ivory)_0%,var(--color-cream)_100%)] pt-32 pb-20 md:pt-40 md:pb-28">
       <div className="container-x grid gap-16 lg:grid-cols-12 lg:gap-12">
         {/* Left: invitation + direct contact */}
         <div className="lg:col-span-5">
           <Reveal>
             <p className="eyebrow">Free quotation</p>
-            <h2 className="display mt-5 text-[34px] md:text-[44px] lg:text-[46px]">
+            <h1 className="display mt-5 text-[34px] md:text-[44px] lg:text-[46px]">
               Let&rsquo;s Create a Space You&rsquo;ll Love <em className="text-bronze-deep">Coming Home To.</em>
-            </h2>
+            </h1>
             <p className="mt-7 max-w-[480px] text-[16.5px] leading-[1.75] text-ink">
               Planning a new interior or transforming your existing space? Tell us a little about your project. Our
               team will connect with you to understand your requirements and discuss the next steps.

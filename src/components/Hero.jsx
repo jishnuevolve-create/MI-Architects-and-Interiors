@@ -4,6 +4,7 @@ import { ArrowRight, Building2, GraduationCap, Home, ShoppingBag, Stethoscope } 
 import Picture from './ui/Picture.jsx';
 import { sectors } from '../data/projects.js';
 import { showSector } from '../lib/sectorEvents.js';
+import { CONTACT_URL } from '../lib/links.js';
 
 const ease = [0.22, 0.61, 0.36, 1];
 export const sectorIcons = {
@@ -76,7 +77,7 @@ export default function Hero() {
               <a href="#projects" className="btn btn-dark">
                 Explore Projects <ArrowRight size={16} strokeWidth={1.8} className="btn-arrow" />
               </a>
-              <a href="#contact" className="btn border border-espresso/30 text-espresso hover:bg-espresso hover:text-white">
+              <a href={CONTACT_URL} className="btn border border-espresso/30 text-espresso hover:bg-espresso hover:text-white">
                 Get a Free Quotation
               </a>
             </motion.div>

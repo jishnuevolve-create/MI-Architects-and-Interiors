@@ -5,10 +5,13 @@ import Logo from './ui/Logo.jsx';
 import { navLinks, site } from '../data/site.js';
 import { sectors } from '../data/projects.js';
 import { showSector } from '../lib/sectorEvents.js';
+import { CONTACT_URL, homeLink, isContactPage } from '../lib/links.js';
+
+const hrefFor = (id) => (id === 'contact' ? CONTACT_URL : homeLink(id));
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState('home');
+  const [active, setActive] = useState(() => (isContactPage() ? 'contact' : 'home'));
   const [open, setOpen] = useState(false);
   const [sectorsOpen, setSectorsOpen] = useState(false);
   const dropRef = useRef(null);
@@ -69,7 +72,7 @@ export default function Navbar() {
               : 'border-line/70 bg-paper/80 shadow-[0_10px_30px_-24px_rgba(42,33,27,0.35)]'
           }`}
         >
-          <a href="#home" className="shrink-0" onClick={() => setOpen(false)}>
+          <a href={homeLink('home')} className="shrink-0" onClick={() => setOpen(false)}>
             <Logo tagline />
           </a>
 
@@ -122,7 +125,7 @@ export default function Navbar() {
               return (
                 <li key={l.id}>
                   <a
-                    href={`#${l.id}`}
+                    href={hrefFor(l.id)}
                     aria-current={isActive ? 'true' : undefined}
                     className={`relative py-2 text-[14.5px] font-medium transition-colors ${
                       isActive ? 'text-charcoal' : 'text-ink hover:text-charcoal'
@@ -143,7 +146,7 @@ export default function Navbar() {
           </ul>
 
           <div className="flex items-center gap-2">
-            <a href="#contact" className="btn btn-dark hidden !min-h-[48px] !rounded-full !px-6 !text-[14px] sm:inline-flex">
+            <a href={CONTACT_URL} className="btn btn-dark hidden !min-h-[48px] !rounded-full !px-6 !text-[14px] sm:inline-flex">
               Start Your Project <ArrowRight size={15} strokeWidth={1.8} className="btn-arrow" />
             </a>
             <button
@@ -190,7 +193,7 @@ export default function Navbar() {
                       transition={{ delay: 0.04 + i * 0.04 }}
                       className="border-b border-line"
                     >
-                      <a href={`#${l.id}`} onClick={() => setOpen(false)} className="display flex items-center justify-between py-4 text-[26px]">
+                      <a href={hrefFor(l.id)} onClick={() => setOpen(false)} className="display flex items-center justify-between py-4 text-[26px]">
                         {l.label}
                         <ArrowRight size={18} strokeWidth={1.4} className="text-bronze" />
                       </a>
@@ -211,7 +214,7 @@ export default function Navbar() {
                 ))}
               </div>
               <div className="mt-auto space-y-3 pt-10">
-                <a href="#contact" onClick={() => setOpen(false)} className="btn btn-dark w-full">
+                <a href={CONTACT_URL} onClick={() => setOpen(false)} className="btn btn-dark w-full">
                   Start Your Project <ArrowRight size={16} strokeWidth={1.8} />
                 </a>
                 <a href={site.phones[0].href} className="btn w-full border border-line text-charcoal">

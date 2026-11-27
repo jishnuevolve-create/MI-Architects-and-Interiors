@@ -6,6 +6,7 @@ import Reveal from './ui/Reveal.jsx';
 import ProjectDetail from './ProjectDetail.jsx';
 import { projects, projectsBySector, sectors } from '../data/projects.js';
 import { SECTOR_EVENT } from '../lib/sectorEvents.js';
+import { CONTACT_URL } from '../lib/links.js';
 
 const HASH_PREFIX = '#project/';
 const FIRST_BATCH = 6;
@@ -54,6 +55,16 @@ export default function Projects() {
   const close = useCallback(() => {
     setOpenIndex(null);
     history.replaceState(null, '', '#projects');
+  }, []);
+
+  // Arriving from another page with ?sector=<id> (header Sectors menu).
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get('sector');
+    if (id && sectors.some((s) => s.id === id)) {
+      setActive(id);
+      // The browser's own #projects jump happens before the page has laid out; land on it again.
+      setTimeout(() => document.getElementById('projects')?.scrollIntoView({ block: 'start' }), 350);
+    }
   }, []);
 
   // Sector picked elsewhere on the page (hero strip, sector tiles, header menu).
@@ -221,7 +232,7 @@ export default function Projects() {
                       We are adding photographs of our hospitality work. To see references for a hotel, café or guest
                       space, ask us and we will share them directly.
                     </p>
-                    <a href="#contact" className="btn btn-dark mt-8">
+                    <a href={CONTACT_URL} className="btn btn-dark mt-8">
                       Ask for hospitality references <ArrowRight size={16} strokeWidth={1.6} />
                     </a>
                   </div>
