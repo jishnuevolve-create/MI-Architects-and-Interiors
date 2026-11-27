@@ -190,19 +190,6 @@ export default function Navbar() {
                     </motion.li>
                   ))}
               </ul>
-              <p className="eyebrow mt-8">Sectors</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {sectors.map((s) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => pickSector(s.id)}
-                    className="rounded-full border border-line bg-paper px-4 py-2 text-[14px] text-ink"
-                  >
-                    {s.name}
-                  </button>
-                ))}
-              </div>
               <div className="mt-auto space-y-3 pt-10">
                 <a href={CONTACT_URL} onClick={() => setOpen(false)} className="btn btn-dark w-full">
                   Start Your Project <ArrowRight size={16} strokeWidth={1.8} />

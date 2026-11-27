@@ -67,6 +67,5 @@ export const navLinks = [
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Projects' },
   { id: 'capabilities', label: 'Capabilities' },
-  { id: 'sectors', label: 'Sectors' },
   { id: 'contact', label: 'Contact' },
 ];
