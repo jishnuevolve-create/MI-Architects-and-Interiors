@@ -22,7 +22,7 @@ export default function CtaBand() {
                 Share your requirement and our team will get in touch with a tailored solution.
               </p>
             </div>
-            <a href={CONTACT_URL} className="btn shrink-0 !rounded-full bg-paper text-espresso hover:bg-[#e9dcc8]">
+            <a href={CONTACT_URL} className="btn shrink-0 !rounded-full bg-paper text-espresso hover:bg-ivory">
               Start Your Project <ArrowRight size={16} strokeWidth={1.8} className="btn-arrow" />
             </a>
           </Reveal>

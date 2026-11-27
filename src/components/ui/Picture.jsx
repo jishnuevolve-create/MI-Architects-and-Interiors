@@ -87,7 +87,7 @@ export default function Picture({
   return (
     <div
       ref={boxRef}
-      className={`relative overflow-hidden bg-cream ${className}`}
+      className={`relative overflow-hidden bg-ivory ${className}`}
       style={{
         backgroundImage: loaded ? undefined : `url(${entry.placeholder})`,
         backgroundSize: 'cover',

@@ -109,7 +109,7 @@ export default function Navbar() {
                               <button
                                 type="button"
                                 onClick={() => pickSector(s.id)}
-                                className="flex w-full items-center justify-between px-5 py-2.5 text-left text-[14px] text-ink hover:bg-cream hover:text-charcoal"
+                                className="flex w-full items-center justify-between px-5 py-2.5 text-left text-[14px] text-ink hover:bg-ivory hover:text-charcoal"
                               >
                                 {s.name}
                                 <ArrowRight size={14} strokeWidth={1.6} className="text-bronze" />

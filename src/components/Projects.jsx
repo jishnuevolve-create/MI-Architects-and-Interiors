@@ -20,7 +20,7 @@ function SectorCover({ sector, sizes, className = '' }) {
   return (
     <div
       aria-hidden="true"
-      className={`flex items-center justify-center bg-[radial-gradient(circle_at_30%_20%,#4a4136_0%,#242522_70%)] ${className}`}
+      className={`flex items-center justify-center bg-[radial-gradient(circle_at_30%_20%,#6b4c3b_0%,#4a3326_70%)] ${className}`}
     >
       <span className="display text-[64px] text-white/10 italic">{sector.name.slice(0, 1)}</span>
     </div>

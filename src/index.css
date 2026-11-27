@@ -1,11 +1,12 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Brushed antique gold palette (client mockup) */
+  /* Brushed antique gold palette (client): Antique Gold #B0864E, Espresso #4A3326,
+     Taupe #A89686, Ivory #F6F1E8, Cream #FFFFFF. Other tokens are shades of these. */
   --color-ivory: #f6f1e8;
-  --color-cream: #efe6d8;
+  --color-cream: #ffffff;
   --color-sand: #e6dac9;
-  --color-paper: #fffdf9;
+  --color-paper: #ffffff;
   --color-charcoal: #2a211b;
   --color-ink: #4f4339;
   --color-taupe: #a89686;
