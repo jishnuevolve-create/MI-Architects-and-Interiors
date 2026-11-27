@@ -244,46 +244,95 @@ const roof = [
   { name: 'work/apartment-handover/01', label: 'On site, at handover' },
 ];
 
-/** Under one roof: wide photo frames that drift sideways as the page scrolls. */
+/**
+ * Under one roof. Desktop: the section pins while scrolling moves the photographs sideways,
+ * starting with the first fully in view and releasing once the last is fully in view.
+ * Phones: a swipeable row.
+ */
 export function UnderOneRoof() {
-  const ref = useRef(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const x = useTransform(scrollYProgress, [0, 1], ['6%', '-28%']);
+  const pinRef = useRef(null);
+  const trackRef = useRef(null);
+  const [distance, setDistance] = useState(0);
+  const { scrollYProgress } = useScroll({ target: pinRef, offset: ['start start', 'end end'] });
+  const x = useTransform(scrollYProgress, [0.05, 0.95], [0, -distance], { clamp: true });
+  const bar = useTransform(scrollYProgress, [0.05, 0.95], [0, 1], { clamp: true });
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const measure = () => setDistance(Math.max(0, el.scrollWidth - window.innerWidth));
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    window.addEventListener('resize', measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', measure);
+    };
+  }, []);
+
+  const heading = (
+    <div className="container-x !max-w-[1440px]">
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="eyebrow">Under one roof</p>
+          <h2 className="display mt-5 text-[34px] md:text-[46px]">
+            Studio, Factory <em className="text-bronze-deep">and Site.</em>
+          </h2>
+        </div>
+        <p className="max-w-[380px] text-[15px] leading-[1.75] text-ink">
+          Everything needed to take a space from idea to handover, run by our own people.
+        </p>
+      </div>
+    </div>
+  );
+
+  const caption = (r, i) => (
+    <p className="mt-3 flex items-center gap-3 text-[13.5px] text-ink">
+      <span className="text-[11px] font-semibold tracking-[0.2em] text-bronze-deep">{String(i + 1).padStart(2, '0')}</span>
+      {r.label}
+    </p>
+  );
 
   return (
-    <section ref={ref} className="overflow-x-clip py-4 md:py-8">
-      <div className="container-x !max-w-[1440px]">
-        <Reveal className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="eyebrow">Under one roof</p>
-            <h2 className="display mt-5 text-[34px] md:text-[46px]">
-              Studio, Factory <em className="text-bronze-deep">and Site.</em>
-            </h2>
-          </div>
-          <p className="max-w-[380px] text-[15px] leading-[1.75] text-ink">
-            Everything needed to take a space from idea to handover, run by our own people.
-          </p>
-        </Reveal>
-      </div>
-      <motion.ul style={reduce ? undefined : { x }} className="mt-10 flex w-max gap-5 pl-5 md:pl-10">
-        {roof.map((r, i) => (
-          <motion.li
-            key={r.name}
-            className="w-[78vw] sm:w-[46vw] lg:w-[30vw]"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: i * 0.06, ease }}
+    <section aria-label="Studio, factory and site" className="overflow-x-clip">
+      {/* Desktop: pinned horizontal scroll */}
+      <div ref={pinRef} className="relative hidden md:block" style={{ height: `calc(100vh + ${distance}px)` }}>
+        <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden pt-24">
+          {heading}
+          <motion.ol
+            ref={trackRef}
+            style={{ x }}
+            className="mt-10 flex w-max gap-6 pr-[max(20px,calc((100vw-1440px)/2+40px))] pl-[max(20px,calc((100vw-1440px)/2+40px))]"
           >
-            <Picture name={r.name} alt={r.label} sizes="(min-width: 1024px) 30vw, 78vw" className="aspect-[3/2] w-full rounded-[22px]" />
-            <p className="mt-3 flex items-center gap-3 text-[13.5px] text-ink">
-              <span className="text-[11px] font-semibold tracking-[0.2em] text-bronze-deep">{String(i + 1).padStart(2, '0')}</span>
-              {r.label}
-            </p>
-          </motion.li>
-        ))}
-      </motion.ul>
+            {roof.map((r, i) => (
+              <li key={r.name} className="w-[min(520px,42vw)] shrink-0">
+                <Picture name={r.name} alt={r.label} sizes="520px" className="aspect-[3/2] w-full rounded-[22px]" />
+                {caption(r, i)}
+              </li>
+            ))}
+          </motion.ol>
+          {/* Progress */}
+          <div className="container-x !max-w-[1440px] mt-8">
+            <div className="h-[2px] w-full overflow-hidden rounded-full bg-line" aria-hidden="true">
+              <motion.span className="block h-full origin-left bg-bronze" style={{ scaleX: bar }} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Phones: swipe */}
+      <div className="py-14 md:hidden">
+        {heading}
+        <ol className="no-scrollbar mt-8 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5">
+          {roof.map((r, i) => (
+            <li key={r.name} className="w-[80%] shrink-0 snap-start">
+              <Picture name={r.name} alt={r.label} sizes="80vw" className="aspect-[3/2] w-full rounded-[20px]" />
+              {caption(r, i)}
+            </li>
+          ))}
+        </ol>
+      </div>
     </section>
   );
 }
