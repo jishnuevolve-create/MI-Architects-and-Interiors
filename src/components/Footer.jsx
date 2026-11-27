@@ -6,7 +6,7 @@ import { CONTACT_URL, homeLink } from '../lib/links.js';
 export default function Footer() {
   const wa = whatsappLink();
   return (
-    <footer className="mt-10 bg-espresso text-white/75 md:mt-14">
+    <footer className="mt-10 bg-[#33231a] text-white/75 md:mt-14">
       <div className="container-x pt-20 pb-10 md:pt-24">
         <p className="display max-w-[900px] text-[32px] leading-[1.15] text-ivory md:text-[48px]">
           Designed with purpose. <em className="text-[#e2c393]">Built with precision.</em>
