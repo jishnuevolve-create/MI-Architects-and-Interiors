@@ -76,7 +76,7 @@ function Spotlight({ onOpen }) {
             </h2>
           </div>
           <p className="text-[13px] tracking-[0.18em] text-ink/70 uppercase">
-            {sectorName(p.sector)} · {p.gallery.length} photographs
+            {sectorName(p.sector)}
           </p>
         </Reveal>
 
