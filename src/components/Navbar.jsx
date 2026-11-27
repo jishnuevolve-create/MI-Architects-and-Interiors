@@ -5,13 +5,14 @@ import Logo from './ui/Logo.jsx';
 import { navLinks, site } from '../data/site.js';
 import { sectors } from '../data/projects.js';
 import { showSector } from '../lib/sectorEvents.js';
-import { CONTACT_URL, homeLink, isContactPage } from '../lib/links.js';
+import { CONTACT_URL, currentPage, pageLink } from '../lib/links.js';
 
-const hrefFor = (id) => (id === 'contact' ? CONTACT_URL : homeLink(id));
+const hrefFor = (id) => pageLink(id);
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState(() => (isContactPage() ? 'contact' : 'home'));
+  // The menu item for the page being viewed.
+  const active = currentPage();
   const [open, setOpen] = useState(false);
   const [sectorsOpen, setSectorsOpen] = useState(false);
   const dropRef = useRef(null);
@@ -22,17 +23,6 @@ export default function Navbar() {
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // Highlight the section currently in view.
-  useEffect(() => {
-    const sections = [...document.querySelectorAll('main section[id]')];
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
-      { rootMargin: '-45% 0px -50% 0px' },
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
   }, []);
 
   useEffect(() => {
@@ -72,7 +62,7 @@ export default function Navbar() {
               : 'border-line/70 bg-paper/80 shadow-[0_10px_30px_-24px_rgba(42,33,27,0.35)]'
           }`}
         >
-          <a href={homeLink('home')} className="shrink-0" onClick={() => setOpen(false)}>
+          <a href={pageLink('home')} className="shrink-0" onClick={() => setOpen(false)}>
             <Logo tagline />
           </a>
 

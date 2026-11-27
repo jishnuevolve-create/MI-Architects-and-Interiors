@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import Picture from './ui/Picture.jsx';
 import Reveal from './ui/Reveal.jsx';
 import { services } from '../data/services.js';
-import { CONTACT_URL } from '../lib/links.js';
+import { pageLink } from '../lib/links.js';
 
 export default function Capabilities() {
   return (
@@ -19,8 +19,8 @@ export default function Capabilities() {
                 From concept to completion, we bring design intent, engineering coordination and manufacturing
                 under one roof, so nothing is lost between contractors.
               </p>
-              <a href={CONTACT_URL} className="btn btn-dark mt-8">
-                Discuss Your Project <ArrowRight size={16} strokeWidth={1.8} className="btn-arrow" />
+              <a href={pageLink('capabilities')} className="btn btn-dark mt-8">
+                View All Capabilities <ArrowRight size={16} strokeWidth={1.8} className="btn-arrow" />
               </a>
             </Reveal>
 

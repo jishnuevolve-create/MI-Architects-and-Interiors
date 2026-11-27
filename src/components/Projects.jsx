@@ -6,7 +6,7 @@ import Reveal from './ui/Reveal.jsx';
 import ProjectDetail from './ProjectDetail.jsx';
 import { projects, projectsBySector, sectors } from '../data/projects.js';
 import { SECTOR_EVENT } from '../lib/sectorEvents.js';
-import { CONTACT_URL } from '../lib/links.js';
+import { CONTACT_URL, PROJECTS_URL } from '../lib/links.js';
 
 const HASH_PREFIX = '#project/';
 const FIRST_BATCH = 6;
@@ -27,9 +27,10 @@ function SectorCover({ sector, sizes, className = '' }) {
   );
 }
 
-export default function Projects() {
+/** `onPage`: shown on the Projects page (all projects listed, no link to itself). */
+export default function Projects({ onPage = false }) {
   const [active, setActive] = useState(sectors[0].id);
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(onPage);
   const [openIndex, setOpenIndex] = useState(null);
 
   const sector = sectors.find((s) => s.id === active);
@@ -38,7 +39,7 @@ export default function Projects() {
 
   const choose = (id) => {
     setActive(id);
-    setShowAll(false);
+    setShowAll(onPage);
     // Below the desktop layout the project list sits under the tiles: bring it into view.
     if (window.innerWidth < 1024) {
       setTimeout(() => document.getElementById('sector-panel')?.scrollIntoView({ block: 'start' }), 60);
@@ -62,8 +63,10 @@ export default function Projects() {
     const id = new URLSearchParams(window.location.search).get('sector');
     if (id && sectors.some((s) => s.id === id)) {
       setActive(id);
-      // The browser's own #projects jump happens before the page has laid out; land on it again.
-      setTimeout(() => document.getElementById('projects')?.scrollIntoView({ block: 'start' }), 350);
+      // Scroll to the projects (the page may still be laying out, so try twice).
+      const land = () => document.getElementById('projects')?.scrollIntoView({ block: 'start' });
+      setTimeout(land, 350);
+      setTimeout(land, 900); // again once photos above have taken their space
     }
   }, []);
 
@@ -72,7 +75,7 @@ export default function Projects() {
     const onSector = (e) => {
       if (!e.detail?.id) return;
       setActive(e.detail.id);
-      setShowAll(false);
+      setShowAll(onPage);
     };
     window.addEventListener(SECTOR_EVENT, onSector);
     return () => window.removeEventListener(SECTOR_EVENT, onSector);
@@ -108,6 +111,11 @@ export default function Projects() {
               From villas to clinics, the same studio draws the plans, makes the furniture and runs the site.
               Choose a sector to see the work.
             </p>
+            {!onPage && (
+              <a href={PROJECTS_URL} className="link-underline mt-5 inline-flex items-center gap-2 text-[14px] font-semibold text-espresso">
+                View all projects <ArrowRight size={15} strokeWidth={1.8} />
+              </a>
+            )}
           </Reveal>
         </div>
 

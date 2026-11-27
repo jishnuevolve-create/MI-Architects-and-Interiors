@@ -45,7 +45,7 @@ function seoFiles(siteUrl, basePath) {
       this.emitFile({
         type: 'asset',
         fileName: 'sitemap.xml',
-        source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${base}/</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>\n  <url><loc>${base}/contact/</loc><lastmod>${today}</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>\n</urlset>\n`,
+        source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${base}/</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>\n${['about', 'capabilities', 'projects', 'contact'].map((p) => `  <url><loc>${base}/${p}/</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>\n`).join('')}</urlset>\n`,
       });
     },
   };
@@ -63,10 +63,12 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), tailwindcss(), seoFiles(env.SITE_URL, basePath)],
     build: {
       rollupOptions: {
-        // Two pages: the home page and the contact page (served at <base>contact/).
+        // One HTML page per folder: home, about/, capabilities/, projects/, contact/.
         input: {
           main: resolve(import.meta.dirname, 'index.html'),
-          contact: resolve(import.meta.dirname, 'contact/index.html'),
+          ...Object.fromEntries(
+            ['about', 'capabilities', 'projects', 'contact'].map((p) => [p, resolve(import.meta.dirname, `${p}/index.html`)]),
+          ),
         },
       },
     },

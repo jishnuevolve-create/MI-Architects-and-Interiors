@@ -1,7 +1,7 @@
 import Logo from './ui/Logo.jsx';
 import { InstagramIcon, WhatsAppIcon } from './ui/BrandIcons.jsx';
 import { navLinks, site, whatsappLink } from '../data/site.js';
-import { CONTACT_URL, homeLink } from '../lib/links.js';
+import { pageLink } from '../lib/links.js';
 
 export default function Footer() {
   const wa = whatsappLink();
@@ -26,7 +26,7 @@ export default function Footer() {
             <ul className="mt-5 space-y-2.5 text-[14.5px]">
               {navLinks.map((l) => (
                 <li key={l.id}>
-                  <a href={l.id === 'contact' ? CONTACT_URL : homeLink(l.id === 'sectors' ? 'projects' : l.id)} className="hover:text-white">{l.label}</a>
+                  <a href={pageLink(l.id === 'sectors' ? 'projects' : l.id)} className="hover:text-white">{l.label}</a>
                 </li>
               ))}
             </ul>

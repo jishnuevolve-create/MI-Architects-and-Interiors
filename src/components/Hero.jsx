@@ -27,8 +27,8 @@ export default function Hero() {
         {/* Photo with a sweeping arch on its left edge (desktop); full-bleed card on mobile */}
         <motion.div
           className="relative order-2 mx-5 mb-6 h-[300px] overflow-hidden rounded-[24px] sm:h-[420px] lg:order-none lg:mb-0 lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:mt-0 lg:h-auto lg:w-[64%] lg:rounded-none lg:rounded-tl-[46%_100%] lg:border-l-[26px] lg:border-cream"
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease }}
         >
           <motion.div className="h-full w-full origin-center" style={reduce ? undefined : { scale: imgScale }}>

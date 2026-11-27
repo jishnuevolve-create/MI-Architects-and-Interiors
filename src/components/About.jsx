@@ -3,10 +3,12 @@ import Parallax from './ui/Parallax.jsx';
 import Picture from './ui/Picture.jsx';
 import Reveal from './ui/Reveal.jsx';
 import { site } from '../data/site.js';
+import { pageLink } from '../lib/links.js';
 
 const factIcons = [Award, Handshake, Users, Factory];
 
-export default function About() {
+/** `onPage`: shown on the About page, where the button leads on to Capabilities. */
+export default function About({ onPage = false }) {
   return (
     <section id="about" className="pt-10 pb-3 md:pt-14 md:pb-5">
       <div className="container-x !max-w-[1440px]">
@@ -26,8 +28,8 @@ export default function About() {
                 <p className="mt-4 max-w-[520px] text-[15px] leading-[1.8] text-ink/80">
                   Led by founder {site.founder}, with one team accountable from the first site visit to handover.
                 </p>
-                <a href="#capabilities" className="btn btn-dark mt-9">
-                  Know More <ArrowRight size={16} strokeWidth={1.8} className="btn-arrow" />
+                <a href={pageLink(onPage ? 'capabilities' : 'about')} className="btn btn-dark mt-9">
+                  {onPage ? 'Our Capabilities' : 'Know More'} <ArrowRight size={16} strokeWidth={1.8} className="btn-arrow" />
                 </a>
               </Reveal>
             </div>
