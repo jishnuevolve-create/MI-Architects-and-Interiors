@@ -1,0 +1,288 @@
+import { useEffect, useRef, useState } from 'react';
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import Parallax from '../ui/Parallax.jsx';
+import Picture from '../ui/Picture.jsx';
+import Reveal from '../ui/Reveal.jsx';
+import { site } from '../../data/site.js';
+import { strengths } from '../../data/content.js';
+
+const ease = [0.22, 0.61, 0.36, 1];
+
+/** Large centred statement with the founder's name. */
+export function Manifesto() {
+  const ref = useRef(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 85%', 'end 40%'] });
+  const words = 'We believe a space should be designed with intent and built with the discipline to match it.'.split(' ');
+
+  return (
+    <section ref={ref} className="py-20 md:py-32">
+      <div className="container-x !max-w-[1100px] text-center">
+        <p className="eyebrow justify-center">Our philosophy</p>
+        <p className="display mt-8 text-[30px] leading-[1.3] text-charcoal md:text-[46px] lg:text-[54px]">
+          {words.map((w, i) => (
+            <Word key={i} progress={scrollYProgress} range={[i / words.length, (i + 1) / words.length]} reduce={reduce} accent={i >= 9}>
+              {w}
+            </Word>
+          ))}
+        </p>
+        <Reveal className="mt-10 flex flex-col items-center gap-2">
+          <span className="h-px w-16 bg-bronze" />
+          <span className="mt-3 text-[15px] font-semibold text-charcoal">{site.founder}</span>
+          <span className="text-[13px] text-ink/70">Founder, {site.name}</span>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/** Each word brightens as the statement scrolls into view. */
+function Word({ children, progress, range, reduce, accent }) {
+  const opacity = useTransform(progress, range, [0.18, 1]);
+  return (
+    <motion.span style={reduce ? undefined : { opacity }} className={`mr-[0.25em] inline-block ${accent ? 'text-bronze-deep italic' : ''}`}>
+      {children}
+    </motion.span>
+  );
+}
+
+/** Story: sticky heading and photo collage beside the long-form text. */
+export function Story() {
+  return (
+    <section className="py-4 md:py-6">
+      <div className="container-x !max-w-[1440px]">
+        <div className="rounded-[32px] border border-line bg-paper p-6 sm:p-10 lg:p-16">
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-5">
+              <div className="lg:sticky lg:top-32">
+                <Reveal>
+                  <p className="eyebrow">Our story</p>
+                  <h2 className="display mt-5 text-[34px] md:text-[48px]">
+                    One Studio. <em className="block text-bronze-deep">Every Trade.</em>
+                  </h2>
+                </Reveal>
+                <div className="relative mt-10 hidden pb-16 lg:block">
+                  <Parallax amount={6} className="aspect-[4/5] w-[78%] rounded-[22px]">
+                    <Picture name="film/studio" alt="The glass-walled design studio on our campus" sizes="30vw" className="h-full w-full" />
+                  </Parallax>
+                  <div className="absolute right-0 bottom-0 w-[48%] rounded-[20px] border-[8px] border-paper shadow-[0_24px_50px_-24px_rgba(42,33,27,0.5)]">
+                    <Picture name="film/assembly" alt="Our craftsmen assembling furniture in the factory" sizes="20vw" className="aspect-square w-full rounded-[12px]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-8 text-[16.5px] leading-[1.9] text-ink lg:col-span-7 lg:pt-20">
+              <Reveal>
+                <p className="display text-[24px] leading-[1.5] text-charcoal md:text-[28px]">
+                  {site.legalName} keeps every stage of an interior with one team, so the space that is built is the
+                  space that was designed.
+                </p>
+              </Reveal>
+              <Reveal>
+                <p>
+                  Led by {site.founder}, we bring every stage of an interior under one roof. Our designers plan the
+                  space and select every material. Our own factory makes the kitchens, wardrobes and furniture on CNC,
+                  edge-banding and multi-boring machines. Our site teams carry out the civil works, fit-out and
+                  building services, and install what the factory makes.
+                </p>
+              </Reveal>
+              <Reveal>
+                <p>
+                  Because one team owns the whole job, decisions travel quickly, details survive from drawing to
+                  finish, and you have a single point of contact from the first site visit to the day you move in.
+                </p>
+              </Reveal>
+              <Reveal>
+                <p>
+                  Today we work across residential, commercial, retail, education and healthcare projects, for
+                  families, growing businesses and national brands alike.
+                </p>
+              </Reveal>
+              <Reveal className="grid grid-cols-2 gap-4 pt-4 lg:hidden">
+                <Picture name="film/studio" alt="The glass-walled design studio on our campus" sizes="50vw" className="aspect-[4/5] w-full rounded-[18px]" />
+                <Picture name="film/assembly" alt="Our craftsmen assembling furniture in the factory" sizes="50vw" className="aspect-[4/5] w-full rounded-[18px]" />
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Counts up to a figure such as "200+" when it comes into view. */
+function Counter({ value }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-15% 0px' });
+  const reduce = useReducedMotion();
+  const target = parseInt(value, 10);
+  const suffix = value.replace(/^\d+/, '');
+  const [n, setN] = useState(reduce ? target : 0);
+
+  useEffect(() => {
+    if (!inView || reduce) return;
+    let raf;
+    const start = performance.now();
+    const tick = (t) => {
+      const p = Math.min(1, (t - start) / 1600);
+      setN(Math.round(target * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, reduce, target]);
+
+  return (
+    <span ref={ref}>
+      {n}
+      {suffix}
+    </span>
+  );
+}
+
+/** Figures from the company profile, large on espresso. */
+export function Numbers() {
+  return (
+    <section className="py-4 md:py-6">
+      <div className="container-x !max-w-[1440px]">
+        <div className="relative overflow-hidden rounded-[32px] bg-espresso px-6 py-14 text-white sm:px-10 md:py-20 lg:px-16">
+          <div aria-hidden="true" className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full border border-[#e2c393]/20" />
+          <div aria-hidden="true" className="pointer-events-none absolute -top-10 -right-10 h-44 w-44 rounded-full border border-[#e2c393]/15" />
+          <Reveal>
+            <p className="eyebrow !text-[#e2c393] before:!bg-[#e2c393]">By the numbers</p>
+          </Reveal>
+          <dl className="mt-10 grid grid-cols-2 gap-y-12 lg:grid-cols-4">
+            {site.facts.map((f, i) => (
+              <Reveal key={f.label} delay={i * 0.08} className={`${i % 2 ? 'border-l border-white/15 pl-6' : ''} lg:border-l lg:border-white/15 lg:pl-8 ${i === 0 ? 'lg:border-l-0 lg:pl-0' : ''}`}>
+                <dd className="display text-[56px] leading-none text-[#e2c393] md:text-[80px]">
+                  <Counter value={f.value} />
+                </dd>
+                <dt className="mt-4 text-[13.5px] tracking-wide text-white/70">{f.label}</dt>
+              </Reveal>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Principles: numbered editorial list with fine rules. */
+export function Principles() {
+  return (
+    <section className="py-16 md:py-24">
+      <div className="container-x !max-w-[1440px]">
+        <div className="grid gap-10 lg:grid-cols-12">
+          <Reveal className="lg:col-span-4">
+            <p className="eyebrow">What we stand for</p>
+            <h2 className="display mt-5 text-[34px] md:text-[46px]">
+              Four <em className="text-bronze-deep">Principles.</em>
+            </h2>
+            <p className="mt-5 max-w-[340px] text-[15.5px] leading-[1.8] text-ink">
+              The standards every project is held to, whatever its size or sector.
+            </p>
+          </Reveal>
+          <ol className="grid border-t border-line sm:grid-cols-2 lg:col-span-8">
+            {strengths.map((s, i) => (
+              <Reveal
+                as="li"
+                key={s.title}
+                delay={i * 0.06}
+                className={`group border-b border-line py-8 sm:pr-8 ${i % 2 ? 'sm:border-l sm:pl-8' : ''}`}
+              >
+                <span className="display text-[40px] leading-none text-bronze/40 transition-colors duration-500 group-hover:text-bronze">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h3 className="display mt-5 text-[24px] text-charcoal">{s.title}</h3>
+                <p className="mt-3 text-[15px] leading-[1.75] text-ink">{s.text}</p>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const roof = [
+  { name: 'film/aerial', label: 'Our campus, Ahmedabad' },
+  { name: 'film/design-team', label: 'Design studio' },
+  { name: 'film/materials', label: 'Material library' },
+  { name: 'film/factory', label: 'Furniture factory' },
+  { name: 'film/edge-banding', label: 'Precision machinery' },
+  { name: 'work/apartment-handover/01', label: 'On site, at handover' },
+];
+
+/** Under one roof: wide photo frames that drift sideways as the page scrolls. */
+export function UnderOneRoof() {
+  const ref = useRef(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const x = useTransform(scrollYProgress, [0, 1], ['6%', '-28%']);
+
+  return (
+    <section ref={ref} className="overflow-x-clip py-4 md:py-8">
+      <div className="container-x !max-w-[1440px]">
+        <Reveal className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="eyebrow">Under one roof</p>
+            <h2 className="display mt-5 text-[34px] md:text-[46px]">
+              Studio, Factory <em className="text-bronze-deep">and Site.</em>
+            </h2>
+          </div>
+          <p className="max-w-[380px] text-[15px] leading-[1.75] text-ink">
+            Everything needed to take a space from idea to handover, run by our own people.
+          </p>
+        </Reveal>
+      </div>
+      <motion.ul style={reduce ? undefined : { x }} className="mt-10 flex w-max gap-5 pl-5 md:pl-10">
+        {roof.map((r, i) => (
+          <motion.li
+            key={r.name}
+            className="w-[78vw] sm:w-[46vw] lg:w-[30vw]"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: i * 0.06, ease }}
+          >
+            <Picture name={r.name} alt={r.label} sizes="(min-width: 1024px) 30vw, 78vw" className="aspect-[3/2] w-full rounded-[22px]" />
+            <p className="mt-3 flex items-center gap-3 text-[13.5px] text-ink">
+              <span className="text-[11px] font-semibold tracking-[0.2em] text-bronze-deep">{String(i + 1).padStart(2, '0')}</span>
+              {r.label}
+            </p>
+          </motion.li>
+        ))}
+      </motion.ul>
+    </section>
+  );
+}
+
+/** Client names in a fine-ruled grid. */
+export function ClientWall() {
+  return (
+    <section className="py-16 md:py-24">
+      <div className="container-x !max-w-[1440px]">
+        <Reveal className="text-center">
+          <p className="eyebrow justify-center">Clients &amp; brands</p>
+          <h2 className="display mt-5 text-[34px] md:text-[46px]">
+            Trusted by <em className="text-bronze-deep">Leading Names.</em>
+          </h2>
+        </Reveal>
+        <ul className="mt-12 grid grid-cols-2 overflow-hidden rounded-[28px] border border-line bg-paper sm:grid-cols-3 lg:grid-cols-5">
+          {site.clients.map((c, i) => (
+            <Reveal
+              as="li"
+              key={c}
+              delay={(i % 5) * 0.04}
+              className="group -mt-px -ml-px flex min-h-[110px] items-center justify-center border-t border-l border-line px-4 text-center"
+            >
+              <span className="display text-[19px] text-charcoal/75 transition-colors duration-300 group-hover:text-bronze-deep md:text-[22px]">
+                {c}
+              </span>
+            </Reveal>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}

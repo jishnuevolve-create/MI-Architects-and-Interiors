@@ -1,27 +1,31 @@
 import { renderPage } from '../lib/renderPage.jsx';
-import PageHero from '../components/PageHero.jsx';
-import About from '../components/About.jsx';
-import Strengths from '../components/Strengths.jsx';
-import Manufacturing from '../components/Manufacturing.jsx';
-import Process from '../components/Process.jsx';
-import Clients from '../components/Clients.jsx';
-import CtaBand from '../components/CtaBand.jsx';
+import InnerHero from '../components/inner/InnerHero.jsx';
+import { ClientWall, Manifesto, Numbers, Principles, Story, UnderOneRoof } from '../components/inner/AboutSections.jsx';
+import SplitCta from '../components/inner/SplitCta.jsx';
 
 renderPage(
   <>
-    <PageHero
-      eyebrow="About Us"
+    <InnerHero
+      index="01"
+      page="About Us"
       title="Design-Led."
-      accent="Execution‑Driven."
-      intro="An integrated interiors and turnkey company from Ahmedabad: our own design studio, furniture factory and site teams, accountable for every project from first visit to handover."
+      accent="Execution-Driven."
+      intro="An integrated interiors and turnkey company from Ahmedabad, with our own design studio, furniture factory and site teams."
       image="work/garden-villa/01"
       imageAlt="Two-storey garden villa with a timber-lined overhang and glass balustrades"
+      facts={[
+        { label: 'Founded by', value: 'Ar. Mihir Patel' },
+        { label: 'Based in', value: 'Sola, Ahmedabad' },
+        { label: 'Model', value: 'Design · Build · Manufacture' },
+        { label: 'Sectors', value: '5 sectors served' },
+      ]}
     />
-    <About onPage />
-    <Strengths />
-    <Manufacturing />
-    <Process />
-    <Clients />
-    <CtaBand />
+    <Manifesto />
+    <Story />
+    <Numbers />
+    <Principles />
+    <UnderOneRoof />
+    <ClientWall />
+    <SplitCta image="work/double-height-residence/01" />
   </>,
 );
