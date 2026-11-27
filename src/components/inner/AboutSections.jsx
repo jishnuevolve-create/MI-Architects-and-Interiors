@@ -36,15 +36,7 @@ export function Intro() {
   ];
 
   return (
-    <section className="relative overflow-hidden pt-20 pb-[30vw] md:pt-32 md:pb-[17vw]">
-      {/* Watermark */}
-      <span
-        aria-hidden="true"
-        className="display pointer-events-none absolute right-[4vw] bottom-6 text-[24vw] leading-[0.9] text-transparent select-none [-webkit-text-stroke:1px_var(--color-line)] md:bottom-8 md:text-[15vw] xl:text-[14vw]"
-      >
-        MiArq
-      </span>
-
+    <section className="relative py-20 md:py-32">
       <div className="container-x relative !max-w-[1440px]">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           {/* Left: label and discipline index */}
