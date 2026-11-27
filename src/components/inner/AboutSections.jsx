@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { Check, X } from 'lucide-react';
 import Parallax from '../ui/Parallax.jsx';
 import Picture from '../ui/Picture.jsx';
 import Reveal from '../ui/Reveal.jsx';
@@ -8,70 +9,81 @@ import { strengths } from '../../data/content.js';
 
 const ease = [0.22, 0.61, 0.36, 1];
 
-const pillars = [
-  {
-    word: 'Design',
-    image: 'film/drawings',
-    alt: 'A designer preparing working drawings',
-    text: 'Space planning, concepts, material selection and working drawings, made in our own studio.',
-  },
-  {
-    word: 'Build',
-    image: 'work/stone-and-timber-home/04',
-    alt: 'Timber-clad walls and stone planter wall finished on site',
-    text: 'Civil works, interior fit-out and building services, carried out by our own site teams.',
-  },
-  {
-    word: 'Manufacture',
-    image: 'film/panel-saw',
-    alt: 'Panels being cut in our furniture factory',
-    text: 'Kitchens, wardrobes and furniture made in our own factory, then installed by our team.',
-  },
+const comparison = [
+  { topic: 'Who designs the space', usual: 'An independent designer', ours: 'Our in-house design studio' },
+  { topic: 'Who makes the furniture', usual: 'An outside carpenter or vendor', ours: 'Our own furniture factory' },
+  { topic: 'Who builds on site', usual: 'A contractor hired separately', ours: 'Our own site teams' },
+  { topic: 'Building services', usual: 'Added later by other trades', ours: 'Planned with the design' },
+  { topic: 'Your point of contact', usual: 'Three or more parties', ours: 'One project team' },
+  { topic: 'When something needs fixing', usual: 'Each party points to another', ours: 'One team is accountable' },
 ];
 
-/** Design · Build · Manufacture: the three disciplines in the company's name, as tall photo cards. */
-export function Pillars() {
+/** The usual way vs the MiArq way: why one team for design, build and manufacture matters. */
+export function Comparison() {
   return (
     <section className="py-14 md:py-20">
       <div className="container-x !max-w-[1440px]">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <Reveal>
-            <p className="eyebrow">What we do</p>
+            <p className="eyebrow">Why one team</p>
             <h2 className="display mt-5 text-[34px] md:text-[48px]">
-              Three Disciplines. <em className="text-bronze-deep">One Company.</em>
+              One Team <em className="text-bronze-deep">Instead of Three.</em>
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="max-w-[400px] text-[15.5px] leading-[1.75] text-ink">
-              Most projects need a designer, a contractor and a furniture maker. With us, they are the same team.
+              Most interiors pass through a designer, a contractor and a furniture maker. Here is what changes when
+              they are the same company.
             </p>
           </Reveal>
         </div>
 
-        <ul className="mt-10 grid gap-4 md:mt-12 md:grid-cols-3 md:gap-5">
-          {pillars.map((p, i) => (
-            <Reveal as="li" key={p.word} delay={i * 0.1}>
-              <article className="group relative isolate flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-[28px] p-7 text-white md:aspect-[3/4] md:p-8">
-                <div className="absolute inset-0 -z-20">
-                  <Picture
-                    name={p.image}
-                    alt={p.alt}
-                    sizes="(min-width: 768px) 33vw, 100vw"
-                    className="h-full w-full"
-                    imgClassName="transition-transform duration-[1600ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:scale-[1.07]"
-                  />
-                </div>
-                <span className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(30,21,16,0.15)_0%,rgba(30,21,16,0.25)_45%,rgba(30,21,16,0.88)_100%)] transition-colors duration-700 group-hover:bg-[rgba(30,21,16,0.55)]" />
-                <span className="absolute top-7 left-7 display text-[44px] leading-none text-[#e2c393] md:top-8 md:left-8">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <h3 className="display text-[36px] leading-none md:text-[32px] lg:text-[38px] xl:text-[44px]">{p.word}</h3>
-                <span className="mt-5 block h-px w-12 bg-[#e2c393] transition-all duration-700 group-hover:w-24" />
-                <p className="mt-5 max-w-[320px] text-[15px] leading-[1.7] text-white/85">{p.text}</p>
-              </article>
-            </Reveal>
-          ))}
-        </ul>
+        <Reveal className="mt-10 overflow-hidden rounded-[28px] border border-line bg-paper md:mt-12">
+          {/* Column heads */}
+          <div className="grid grid-cols-2 md:grid-cols-[1.1fr_1fr_1fr]">
+            <div className="hidden p-6 md:block lg:p-8" />
+            <div className="border-line p-5 md:border-l md:p-6 lg:p-8">
+              <p className="text-[11px] font-semibold tracking-[0.22em] text-taupe uppercase">The usual way</p>
+              <p className="display mt-2 text-[20px] text-ink/70 md:text-[24px]">Separate contractors</p>
+            </div>
+            <div className="relative bg-espresso p-5 text-white md:p-6 lg:p-8">
+              <p className="text-[11px] font-semibold tracking-[0.22em] text-[#e2c393] uppercase">The MiArq way</p>
+              <p className="display mt-2 text-[20px] md:text-[24px]">
+                <span className="md:hidden">One company</span>
+                <span className="hidden md:inline">Design · Build · Manufacture</span>
+              </p>
+            </div>
+          </div>
+
+          <ul>
+            {comparison.map((row, i) => (
+              <motion.li
+                key={row.topic}
+                className="grid grid-cols-2 border-t border-line md:grid-cols-[1.1fr_1fr_1fr]"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+                transition={{ duration: 0.6, delay: i * 0.06, ease }}
+              >
+                <p className="col-span-2 px-5 pt-5 text-[12px] font-semibold tracking-[0.14em] text-charcoal uppercase md:col-span-1 md:flex md:items-center md:p-6 md:text-[15.5px] md:font-medium md:tracking-normal md:normal-case lg:px-8">
+                  {row.topic}
+                </p>
+                <p className="flex items-start gap-3 px-5 py-4 text-[14.5px] text-ink/70 md:items-center md:border-l md:border-line md:p-6 lg:px-8">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line text-taupe md:mt-0">
+                    <X size={12} strokeWidth={2.2} />
+                  </span>
+                  {row.usual}
+                </p>
+                <p className="flex items-start gap-3 bg-espresso px-5 py-4 text-[14.5px] font-medium text-white md:items-center md:p-6 lg:px-8">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#e2c393] text-espresso md:mt-0">
+                    <Check size={13} strokeWidth={2.6} />
+                  </span>
+                  {row.ours}
+                </p>
+              </motion.li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );
