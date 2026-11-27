@@ -25,7 +25,7 @@ export default function Footer() {
             <ul className="mt-5 space-y-2.5 text-[14.5px]">
               {navLinks.map((l) => (
                 <li key={l.id}>
-                  <a href={`#${l.id}`} className="hover:text-white">{l.label}</a>
+                  <a href={l.id === 'sectors' ? '#projects' : `#${l.id}`} className="hover:text-white">{l.label}</a>
                 </li>
               ))}
             </ul>
