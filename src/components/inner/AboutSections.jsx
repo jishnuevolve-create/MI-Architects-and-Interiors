@@ -8,21 +8,46 @@ import { strengths } from '../../data/content.js';
 
 const ease = [0.22, 0.61, 0.36, 1];
 
+/** A word in the intro with a gold underline that draws in when the section appears. */
+function Marked({ children, delay }) {
+  return (
+    <em className="relative inline-block text-bronze-deep">
+      {children}
+      <motion.span
+        aria-hidden="true"
+        className="absolute right-0 -bottom-0.5 left-0 h-[2px] origin-left rounded-full bg-bronze/60 md:h-[3px]"
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+        transition={{ duration: 0.9, delay, ease }}
+      />
+    </em>
+  );
+}
+
+const disciplines = ['Design', 'Build', 'Manufacture'];
+
 /** Who we are: a large typographic introduction, text only. */
 export function Intro() {
-  const lines = [
-    <>
-      {site.name} is an interiors and turnkey company where{' '}
-      <em className="text-bronze-deep">design</em>, <em className="text-bronze-deep">build</em> and{' '}
-      <em className="text-bronze-deep">manufacture</em> happen under one roof
-    </>,
-    <>so the space we hand over is the space we drew.</>,
+  const facts = [
+    { label: 'Led by', value: site.founder },
+    { label: 'Our people', value: 'Studio, factory and site teams' },
+    { label: 'Sectors', value: 'Residential to healthcare' },
   ];
 
   return (
-    <section className="py-16 md:py-28">
-      <div className="container-x !max-w-[1440px]">
-        <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+    <section className="relative overflow-hidden py-20 md:py-32">
+      {/* Watermark */}
+      <span
+        aria-hidden="true"
+        className="display pointer-events-none absolute -right-6 bottom-[-0.18em] text-[34vw] leading-none text-transparent select-none [-webkit-text-stroke:1px_var(--color-line)] md:text-[22vw]"
+      >
+        MiArq
+      </span>
+
+      <div className="container-x relative !max-w-[1440px]">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+          {/* Left: label and discipline index */}
           <Reveal className="lg:col-span-3">
             <p className="eyebrow">Who we are</p>
             <p className="mt-5 text-[13.5px] leading-[1.7] text-ink/70">
@@ -30,35 +55,39 @@ export function Intro() {
               <br />
               {site.address.city}, {site.address.region}
             </p>
+            <ol className="mt-8 hidden border-l border-bronze/40 lg:block">
+              {disciplines.map((d, i) => (
+                <li key={d} className="group flex items-baseline gap-4 py-2.5 pl-5">
+                  <span className="text-[11px] font-semibold tracking-[0.2em] text-bronze-deep">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="display text-[20px] text-charcoal/70 transition-colors duration-300 group-hover:text-charcoal">{d}</span>
+                </li>
+              ))}
+            </ol>
           </Reveal>
 
+          {/* Right: statement */}
           <div className="lg:col-span-9">
             <h2 className="sr-only">Who we are</h2>
-            <p className="display text-[28px] leading-[1.35] text-charcoal sm:text-[34px] md:text-[42px] xl:text-[50px]">
-              {lines.map((line, i) => (
-                <motion.span
-                  key={i}
-                  className={i === 0 ? '' : 'text-taupe'}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '0px 0px -10% 0px' }}
-                  transition={{ duration: 0.9, delay: i * 0.18, ease }}
-                >
-                  {line}
-                  {i === 0 ? ', ' : ''}
-                </motion.span>
-              ))}
-            </p>
+            <motion.p
+              className="display text-[28px] leading-[1.38] text-charcoal sm:text-[34px] md:text-[42px] xl:text-[50px]"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+              transition={{ duration: 1, ease }}
+            >
+              {site.name} is an interiors and turnkey company where <Marked delay={0.5}>design</Marked>,{' '}
+              <Marked delay={0.7}>build</Marked> and <Marked delay={0.9}>manufacture</Marked> happen under one roof,{' '}
+              <span className="text-taupe">so the space we hand over is the space we drew.</span>
+            </motion.p>
 
-            <Reveal delay={0.3} className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-line pt-6 text-[14px] text-ink md:mt-14">
-              <span>
-                Led by <strong className="font-semibold text-charcoal">{site.founder}</strong>
-              </span>
-              <span aria-hidden="true" className="h-1 w-1 rounded-full bg-bronze" />
-              <span>Our own studio, factory and site teams</span>
-              <span aria-hidden="true" className="h-1 w-1 rounded-full bg-bronze" />
-              <span>Residential to healthcare</span>
-            </Reveal>
+            <dl className="mt-12 grid gap-6 border-t border-line pt-8 sm:grid-cols-3 md:mt-16">
+              {facts.map((f, i) => (
+                <Reveal key={f.label} delay={0.2 + i * 0.08} className={i ? 'sm:border-l sm:border-line sm:pl-6' : ''}>
+                  <dt className="text-[11px] font-semibold tracking-[0.22em] text-bronze-deep uppercase">{f.label}</dt>
+                  <dd className="display mt-2 text-[20px] text-charcoal md:text-[22px]">{f.value}</dd>
+                </Reveal>
+              ))}
+            </dl>
           </div>
         </div>
       </div>
