@@ -10,7 +10,7 @@ export default function Capabilities() {
       <div className="container-x !max-w-[1440px]">
         <div className="rounded-[28px] border border-line bg-paper p-6 sm:p-10 lg:p-12 xl:p-14">
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
-            <Reveal className="lg:col-span-4">
+            <Reveal className="mc lg:col-span-4">
               <p className="eyebrow">Our capabilities</p>
               <h2 className="display mt-5 text-[34px] md:text-[44px] xl:text-[48px]">
                 End-to-End <em className="text-bronze-deep">Interior Solutions.</em>
@@ -37,7 +37,7 @@ export default function Capabilities() {
                         imgClassName="transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] group-hover:scale-[1.06]"
                       />
                     </div>
-                    <div className="p-4 md:p-5">
+                    <div className="p-4 text-center md:p-5 md:text-left">
                       <h3 className="text-[14.5px] font-semibold text-charcoal md:text-[15.5px]">{s.title}</h3>
                       <p className="mt-2 hidden text-[13.5px] leading-[1.65] text-ink/85 sm:block">{s.description}</p>
                     </div>

@@ -16,7 +16,7 @@ export function CapabilityIndex() {
     <section className="py-16 md:py-24">
       <div className="container-x !max-w-[1440px]">
         <div className="grid gap-10 lg:grid-cols-12">
-          <Reveal className="lg:col-span-5">
+          <Reveal className="mc lg:col-span-5">
             <p className="eyebrow">What we do</p>
             <h2 className="display mt-5 text-[34px] md:text-[48px]">
               Six Disciplines. <em className="block text-bronze-deep">One Team.</em>
@@ -121,11 +121,11 @@ export function CapabilityChapters() {
                   className="flex scroll-mt-28 flex-col justify-center border-b border-line py-12 last:border-b-0 lg:min-h-[78vh] lg:py-16"
                 >
                   <Picture name={s.image} alt={s.title} sizes="100vw" className="mb-8 aspect-[4/3] w-full rounded-[20px] lg:hidden" />
-                  <Reveal>
+                  <Reveal className="mc">
                     <p className="display text-[56px] leading-none text-bronze/30 md:text-[72px]">{pad(i + 1)}</p>
                     <h3 className="display mt-4 text-[30px] md:text-[40px]">{s.title}</h3>
                     <p className="mt-5 max-w-[520px] text-[16.5px] leading-[1.85] text-ink">{s.description}</p>
-                    <ul className="mt-8 space-y-3.5">
+                    <ul className="mc-list mt-8 space-y-3.5">
                       {s.includes.map((item) => (
                         <li key={item} className="flex items-center gap-3 border-b border-line/70 pb-3.5 text-[15px] text-charcoal">
                           <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-bronze/50 text-bronze-deep">
@@ -183,7 +183,7 @@ export function EngagementModels() {
           {models.map((m, i) => (
             <Reveal key={m.title} delay={i * 0.08}>
               <div
-                className={`flex h-full flex-col rounded-[28px] p-8 transition-transform duration-500 hover:-translate-y-1 md:p-10 ${
+                className={`mc flex h-full flex-col rounded-[28px] p-8 transition-transform duration-500 hover:-translate-y-1 md:p-10 ${
                   m.featured ? 'bg-espresso text-white shadow-[0_30px_70px_-30px_rgba(74,51,38,0.7)] lg:-my-4 lg:py-14' : 'border border-line bg-paper'
                 }`}
               >
@@ -199,7 +199,7 @@ export function EngagementModels() {
                 </div>
                 <h3 className="display mt-8 text-[30px]">{m.title}</h3>
                 <p className={`mt-4 text-[15px] leading-[1.75] ${m.featured ? 'text-white/75' : 'text-ink'}`}>{m.text}</p>
-                <ul className={`mt-7 flex-1 space-y-3 border-t pt-6 ${m.featured ? 'border-white/15' : 'border-line'}`}>
+                <ul className={`mc-list mt-7 flex-1 space-y-3 border-t pt-6 ${m.featured ? 'border-white/15' : 'border-line'}`}>
                   {m.points.map((p) => (
                     <li key={p} className="flex items-center gap-3 text-[14.5px]">
                       <Check size={15} strokeWidth={2} className={m.featured ? 'text-[#e2c393]' : 'text-bronze'} />

@@ -68,7 +68,7 @@ function Spotlight({ onOpen }) {
   return (
     <section className="py-16 md:py-24">
       <div className="container-x !max-w-[1440px]">
-        <Reveal className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <Reveal className="mc flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="eyebrow">Project in focus</p>
             <h2 className="display mt-5 text-[34px] md:text-[50px]">
@@ -96,9 +96,9 @@ function Spotlight({ onOpen }) {
             </button>
           </Reveal>
           <div className="flex flex-col gap-4 lg:col-span-4">
-            <Reveal delay={0.1} className="rounded-[28px] border border-line bg-paper p-7 md:p-9">
+            <Reveal delay={0.1} className="mc rounded-[28px] border border-line bg-paper p-7 md:p-9">
               <p className="text-[16px] leading-[1.8] text-ink">{p.summary}</p>
-              <ul className="mt-6 space-y-3 border-t border-line pt-6">
+              <ul className="mc-list mt-6 space-y-3 border-t border-line pt-6">
                 {p.details.map((d) => (
                   <li key={d} className="flex gap-3 text-[14.5px] text-charcoal">
                     <span aria-hidden="true" className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-bronze" />
@@ -130,7 +130,7 @@ function Gallery({ filter, setFilter, onOpen }) {
     <section id="projects" className="scroll-mt-24 py-4 md:py-6">
       <div className="container-x !max-w-[1440px]">
         <div className="rounded-[32px] border border-line bg-paper p-5 sm:p-8 lg:p-12">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="mc flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <Reveal>
               <p className="eyebrow">The portfolio</p>
               <h2 className="display mt-5 text-[34px] md:text-[48px]">
@@ -204,7 +204,7 @@ function Gallery({ filter, setFilter, onOpen }) {
                           <ArrowUpRight size={18} strokeWidth={1.6} />
                         </span>
                       </div>
-                      <div className="mt-4 flex items-baseline justify-between gap-4">
+                      <div className="mt-4 flex flex-col items-center gap-2 text-center sm:flex-row sm:items-baseline sm:justify-between sm:gap-4 sm:text-left">
                         <div>
                           <h3 className="display text-[22px] text-charcoal transition-colors group-hover:text-bronze-deep md:text-[26px]">{p.title}</h3>
                           <p className="mt-1 text-[13.5px] text-ink/75">{p.space}</p>

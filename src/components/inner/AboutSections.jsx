@@ -40,7 +40,7 @@ export function Intro() {
       <div className="container-x relative !max-w-[1440px]">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           {/* Left: label and discipline index */}
-          <Reveal className="lg:col-span-3">
+          <Reveal className="mc lg:col-span-3">
             <p className="eyebrow">Who we are</p>
             <p className="mt-5 text-[13.5px] leading-[1.7] text-ink/70">
               {site.legalName}
@@ -58,7 +58,7 @@ export function Intro() {
           </Reveal>
 
           {/* Right: statement */}
-          <div className="lg:col-span-9">
+          <div className="mc lg:col-span-9">
             <h2 className="sr-only">Who we are</h2>
             <motion.p
               className="display text-[28px] leading-[1.38] text-charcoal sm:text-[34px] md:text-[42px] xl:text-[50px]"
@@ -95,7 +95,7 @@ export function Story() {
         <div className="rounded-[32px] border border-line bg-paper p-6 sm:p-10 lg:p-16">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-5">
-              <div className="lg:sticky lg:top-32">
+              <div className="mc lg:sticky lg:top-32">
                 <Reveal>
                   <p className="eyebrow">Our story</p>
                   <h2 className="display mt-5 text-[34px] md:text-[48px]">
@@ -112,7 +112,7 @@ export function Story() {
                 </div>
               </div>
             </div>
-            <div className="space-y-8 text-[16.5px] leading-[1.9] text-ink lg:col-span-7 lg:pt-20">
+            <div className="mc space-y-8 text-[16.5px] leading-[1.9] text-ink lg:col-span-7 lg:pt-20">
               <Reveal>
                 <p className="display text-[24px] leading-[1.5] text-charcoal md:text-[28px]">
                   {site.legalName} keeps every stage of an interior with one team, so the space that is built is the
@@ -189,10 +189,10 @@ export function Numbers() {
         <div className="relative overflow-hidden rounded-[32px] bg-espresso px-6 py-14 text-white sm:px-10 md:py-20 lg:px-16">
           <div aria-hidden="true" className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full border border-[#e2c393]/20" />
           <div aria-hidden="true" className="pointer-events-none absolute -top-10 -right-10 h-44 w-44 rounded-full border border-[#e2c393]/15" />
-          <Reveal>
+          <Reveal className="mc">
             <p className="eyebrow !text-[#e2c393] before:!bg-[#e2c393]">By the numbers</p>
           </Reveal>
-          <dl className="mt-10 grid grid-cols-2 gap-y-12 lg:grid-cols-4">
+          <dl className="mc mt-10 grid grid-cols-2 gap-y-12 lg:grid-cols-4">
             {site.facts.map((f, i) => (
               <Reveal key={f.label} delay={i * 0.08} className={`${i % 2 ? 'border-l border-white/15 pl-6' : ''} lg:border-l lg:border-white/15 lg:pl-8 ${i === 0 ? 'lg:border-l-0 lg:pl-0' : ''}`}>
                 <dd className="display text-[56px] leading-none text-[#e2c393] md:text-[80px]">
@@ -214,7 +214,7 @@ export function Principles() {
     <section className="py-16 md:py-24">
       <div className="container-x !max-w-[1440px]">
         <div className="grid gap-10 lg:grid-cols-12">
-          <Reveal className="lg:col-span-4">
+          <Reveal className="mc lg:col-span-4">
             <p className="eyebrow">What we stand for</p>
             <h2 className="display mt-5 text-[34px] md:text-[46px]">
               Four <em className="text-bronze-deep">Principles.</em>
@@ -229,7 +229,7 @@ export function Principles() {
                 as="li"
                 key={s.title}
                 delay={i * 0.06}
-                className={`group border-b border-line py-8 sm:pr-8 ${i % 2 ? 'sm:border-l sm:pl-8' : ''}`}
+                className={`mc group border-b border-line py-8 sm:pr-8 ${i % 2 ? 'sm:border-l sm:pl-8' : ''}`}
               >
                 <span className="display text-[40px] leading-none text-bronze/40 transition-colors duration-500 group-hover:text-bronze">
                   {String(i + 1).padStart(2, '0')}
@@ -283,7 +283,7 @@ export function UnderOneRoof() {
 
   const heading = (
     <div className="container-x !max-w-[1440px]">
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div className="mc flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="eyebrow">Under one roof</p>
           <h2 className="display mt-5 text-[34px] md:text-[46px]">
@@ -298,7 +298,7 @@ export function UnderOneRoof() {
   );
 
   const caption = (r, i) => (
-    <p className="mt-3 flex items-center gap-3 text-[13.5px] text-ink">
+    <p className="mc-row mt-3 flex items-center gap-3 text-[13.5px] text-ink">
       <span className="text-[11px] font-semibold tracking-[0.2em] text-bronze-deep">{String(i + 1).padStart(2, '0')}</span>
       {r.label}
     </p>

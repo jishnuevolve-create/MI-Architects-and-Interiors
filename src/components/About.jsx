@@ -14,10 +14,10 @@ export default function About({ onPage = false }) {
       <div className="container-x !max-w-[1440px]">
         <div className="overflow-hidden rounded-[28px] border border-line bg-paper shadow-[0_30px_80px_-50px_rgba(42,33,27,0.35)]">
           <div className="grid lg:grid-cols-2">
-            <div className="p-7 sm:p-10 lg:p-14 xl:p-16">
+            <div className="mc p-7 sm:p-10 lg:p-14 xl:p-16">
               <Reveal>
                 <p className="eyebrow">About us</p>
-                <h2 className="display mt-5 text-[34px] md:text-[46px] lg:text-[42px] xl:text-[52px]">
+                <h2 className="display mt-5 text-[30px] md:text-[46px] lg:text-[42px] xl:text-[52px]">
                   Design-Led. <em className="block whitespace-nowrap text-bronze-deep">Execution-Driven.</em>
                 </h2>
                 <p className="mt-6 max-w-[520px] text-[16px] leading-[1.8] text-ink">

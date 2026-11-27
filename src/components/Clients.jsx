@@ -8,7 +8,7 @@ export default function Clients() {
     <section id="clients" className="py-3 md:py-5">
       <div className="container-x !max-w-[1440px]">
         <div className="overflow-hidden rounded-[28px] border border-line bg-paper py-10 md:py-12">
-          <Reveal className="px-6 sm:px-10 lg:px-12">
+          <Reveal className="mc px-6 sm:px-10 lg:px-12">
             <p className="eyebrow">Our clients</p>
             <h2 className="display mt-4 text-[30px] md:text-[40px]">
               Trusted by <em className="text-bronze-deep">Leading Brands.</em>

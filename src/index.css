@@ -236,3 +236,28 @@
     transform: translateX(-50%);
   }
 }
+
+/*
+ * Mobile centring. Add .mc to a block to centre its headings, labels, text and buttons on
+ * phones (below 768px); desktop keeps its own alignment. Checklists and form fields stay
+ * left-aligned for readability, centred as a block with .mc-list.
+ */
+@media (max-width: 767.98px) {
+  .mc {
+    text-align: center;
+  }
+  .mc :where(h1, h2, h3, p, dl, .mc-block) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .mc :where(.flex-wrap, .mc-row) {
+    justify-content: center;
+  }
+  .mc .mc-list {
+    width: fit-content;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+}

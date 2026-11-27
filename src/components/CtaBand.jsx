@@ -15,7 +15,7 @@ export default function CtaBand() {
             </Parallax>
           </div>
           <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(42,33,27,0.92)_0%,rgba(74,51,38,0.82)_55%,rgba(74,51,38,0.55)_100%)]" />
-          <Reveal className="flex flex-col items-start gap-6 px-7 py-12 text-white sm:px-12 md:flex-row md:items-center md:justify-between md:py-16 lg:px-16">
+          <Reveal className="flex flex-col items-center gap-6 px-7 py-12 text-center text-white sm:px-12 md:flex-row md:items-center md:text-left md:justify-between md:py-16 lg:px-16">
             <div>
               <h2 className="display text-[32px] md:text-[44px]">Let&rsquo;s Build Your Next Space.</h2>
               <p className="mt-3 max-w-[520px] text-[15.5px] leading-[1.7] text-white/80">

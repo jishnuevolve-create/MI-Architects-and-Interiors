@@ -129,7 +129,7 @@ export default function QuotationForm() {
     <section id="contact" className="relative overflow-hidden bg-[linear-gradient(180deg,var(--color-ivory)_0%,var(--color-cream)_100%)] pt-32 pb-20 md:pt-40 md:pb-28">
       <div className="container-x grid gap-16 lg:grid-cols-12 lg:gap-12">
         {/* Left: invitation + direct contact */}
-        <div className="lg:col-span-5">
+        <div className="mc lg:col-span-5">
           <Reveal>
             <p className="eyebrow">Free quotation</p>
             <h1 className="display mt-5 text-[34px] md:text-[44px] lg:text-[46px]">
@@ -143,7 +143,7 @@ export default function QuotationForm() {
 
           <Reveal delay={0.1}>
             <ul className="mt-12 border-t border-line text-[15px]">
-              <li className="flex gap-4 border-b border-line py-5">
+              <li className="flex justify-center gap-4 border-b border-line py-5 md:justify-start">
                 <Phone size={18} strokeWidth={1.4} className="mt-0.5 shrink-0 text-bronze-deep" />
                 <div className="flex flex-col gap-1">
                   {site.phones.map((p) => (
@@ -151,11 +151,11 @@ export default function QuotationForm() {
                   ))}
                 </div>
               </li>
-              <li className="flex gap-4 border-b border-line py-5">
+              <li className="flex justify-center gap-4 border-b border-line py-5 md:justify-start">
                 <Mail size={18} strokeWidth={1.4} className="mt-0.5 shrink-0 text-bronze-deep" />
                 <a href={`mailto:${site.email}`} className="break-all hover:text-bronze-deep">{site.email}</a>
               </li>
-              <li className="flex gap-4 border-b border-line py-5">
+              <li className="flex justify-center gap-4 border-b border-line py-5 md:justify-start">
                 <MapPin size={18} strokeWidth={1.4} className="mt-0.5 shrink-0 text-bronze-deep" />
                 <a href={site.address.mapUrl} target="_blank" rel="noopener noreferrer" className="hover:text-bronze-deep">
                   {site.address.display}
@@ -206,8 +206,8 @@ export default function QuotationForm() {
                   exit={{ opacity: 0 }}
                   aria-describedby="form-note"
                 >
-                  <h3 className="display text-[26px] md:text-[28px]">Request a free quotation</h3>
-                  <p id="form-note" className="mt-2 text-[13px] text-ink/70">
+                  <h3 className="display text-center text-[26px] md:text-left md:text-[28px]">Request a free quotation</h3>
+                  <p id="form-note" className="mt-2 text-center text-[13px] text-ink/70 md:text-left">
                     Fields marked <span className="text-bronze-deep">*</span> are required. It takes about a minute.
                   </p>
 

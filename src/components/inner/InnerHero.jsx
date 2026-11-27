@@ -28,7 +28,7 @@ export default function InnerHero({ index, page, title, accent, intro, image, im
 
           {/* Chapter mark */}
           <motion.div
-            className="absolute top-6 left-6 flex items-center gap-3 text-white md:top-9 md:left-10"
+            className="absolute top-7 left-1/2 flex -translate-x-1/2 items-center gap-3 whitespace-nowrap text-white md:top-9 md:left-10 md:translate-x-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -38,10 +38,10 @@ export default function InnerHero({ index, page, title, accent, intro, image, im
             <span className="text-[11px] font-semibold tracking-[0.28em] uppercase">{page}</span>
           </motion.div>
 
-          <div className="px-6 pb-8 text-white md:px-10 md:pb-12 lg:px-14 lg:pb-14">
+          <div className="mc px-6 pt-24 pb-8 text-white md:px-10 md:pt-0 md:pb-12 lg:px-14 lg:pb-14">
             <motion.nav
               aria-label="Breadcrumb"
-              className="flex items-center gap-1.5 text-[13px] text-white/70"
+              className="mc-row flex items-center gap-1.5 text-[13px] text-white/70"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -53,7 +53,7 @@ export default function InnerHero({ index, page, title, accent, intro, image, im
             <div className="mt-5 grid min-w-0 gap-6 xl:grid-cols-12 xl:items-end">
               <motion.h1
                 id="page-title"
-                className="display min-w-0 text-[36px] leading-[1.08] break-words sm:text-[56px] lg:text-[68px] xl:col-span-8 xl:text-[84px]"
+                className="display min-w-0 text-[30px] leading-[1.1] break-words sm:text-[52px] md:text-[56px] lg:text-[68px] xl:col-span-8 xl:text-[84px]"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.1, delay: 0.25, ease }}

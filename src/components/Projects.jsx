@@ -100,13 +100,13 @@ export default function Projects({ onPage = false }) {
     <section id="projects" className="my-3 bg-cream/70 py-16 md:my-5 md:py-24">
       <div className="container-x">
         <div className="grid gap-8 md:grid-cols-12 md:items-end">
-          <Reveal className="md:col-span-7">
+          <Reveal className="mc md:col-span-7">
             <p className="eyebrow">Featured projects · Sector-wise</p>
             <h2 className="display mt-5 text-[34px] md:text-[44px] xl:text-[52px]">
               Five Sectors. <em className="text-bronze-deep">Designed and Built.</em>
             </h2>
           </Reveal>
-          <Reveal delay={0.1} className="md:col-span-5">
+          <Reveal delay={0.1} className="mc md:col-span-5">
             <p className="text-[15.5px] leading-[1.75] text-ink md:max-w-[400px] md:justify-self-end">
               From villas to clinics, the same studio draws the plans, makes the furniture and runs the site.
               Choose a sector to see the work.
@@ -167,7 +167,7 @@ export default function Projects({ onPage = false }) {
                       : 'bg-[linear-gradient(180deg,rgba(20,20,18,0.25)_0%,rgba(20,20,18,0.8)_100%)]'
                   }`}
                 />
-                <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 md:p-5">
+                <span className="absolute inset-x-0 bottom-0 flex items-end justify-center gap-3 p-4 text-center md:p-5 lg:justify-between lg:text-left">
                   <span className="min-w-0">
                     <span
                       className={`block text-[10px] font-semibold tracking-[0.22em] text-white/70 uppercase ${
@@ -214,7 +214,7 @@ export default function Projects({ onPage = false }) {
               className="lg:col-span-12 lg:grid lg:grid-cols-12 lg:gap-12"
             >
               <div className="lg:col-span-4">
-                <div className="lg:sticky lg:top-28">
+                <div className="mc lg:sticky lg:top-28">
                   <p className="eyebrow">Sector</p>
                   <h3 className="display mt-4 text-[34px] md:text-[44px]">{sector.name}</h3>
                   <p className="mt-5 max-w-[420px] text-[16px] leading-[1.75] text-ink">{sector.intro}</p>
@@ -280,11 +280,11 @@ export default function Projects({ onPage = false }) {
                                   <ArrowUpRight size={18} strokeWidth={1.5} />
                                 </span>
                               </div>
-                              <div className="mt-4 flex items-baseline justify-between gap-4 border-b border-line pb-3">
+                              <div className="mt-4 flex flex-col items-center gap-1 border-b border-line pb-3 text-center sm:flex-row sm:items-baseline sm:justify-between sm:gap-4 sm:text-left">
                                 <h4 className="display text-[21px] transition-colors duration-300 group-hover:text-bronze-deep md:text-[23px]">
                                   {p.title}
                                 </h4>
-                                <span className="shrink-0 text-right text-[12px] tracking-wide text-ink/70">{p.space}</span>
+                                <span className="shrink-0 text-center text-[12px] sm:text-right tracking-wide text-ink/70">{p.space}</span>
                               </div>
                             </button>
                           </motion.li>

@@ -32,7 +32,7 @@ export default function Manufacturing() {
       <div className="container-x !max-w-[1440px]">
         <div className="overflow-hidden rounded-[28px] border border-line bg-paper">
           <div className="grid lg:grid-cols-12">
-            <Reveal className="p-7 sm:p-10 lg:col-span-5 lg:p-12 xl:p-14">
+            <Reveal className="mc p-7 sm:p-10 lg:col-span-5 lg:p-12 xl:p-14">
               <p className="eyebrow">Manufacturing</p>
               <h2 className="display mt-5 text-[34px] md:text-[44px] xl:text-[48px]">
                 Built for <em className="text-bronze-deep">Precision &amp; Scale.</em>
@@ -41,7 +41,7 @@ export default function Manufacturing() {
                 Our own modular furniture facility gives us control over quality, finish and timelines, from a single
                 kitchen to a full commercial fit-out.
               </p>
-              <ul className="mt-7 space-y-3.5">
+              <ul className="mc-list mt-7 space-y-3.5">
                 {points.map((p) => (
                   <li key={p} className="flex gap-3 text-[15px] text-charcoal">
                     <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bronze text-white">
@@ -90,7 +90,7 @@ export default function Manufacturing() {
             {strip.map((f) => (
               <li key={f.name}>
                 <Picture name={f.name} alt={f.label} sizes="33vw" className="aspect-[16/10] w-full rounded-[12px]" />
-                <p className="mt-2 px-1 text-[12px] text-ink/80 sm:text-[13px]">{f.label}</p>
+                <p className="mt-2 px-1 text-center text-[12px] text-ink/80 sm:text-[13px] md:text-left">{f.label}</p>
               </li>
             ))}
           </ul>

@@ -47,7 +47,7 @@ export default function Process() {
     <section id="process" ref={ref} className="relative h-[340vh] lg:h-[360vh]">
       <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-[84px] pb-6 md:pt-24">
         <div className="container-x w-full">
-          <div className="grid gap-4 md:grid-cols-12 md:items-end md:gap-8">
+          <div className="mc grid gap-4 md:grid-cols-12 md:items-end md:gap-8">
             <div className="md:col-span-8">
               <p className="eyebrow">Our process</p>
               <h2 className="display mt-4 text-[30px] sm:text-[38px] md:mt-5 md:text-[46px] lg:text-[52px]">
@@ -59,7 +59,7 @@ export default function Process() {
             </p>
           </div>
 
-          <div className="mt-8 flex items-center gap-3 text-[11px] font-semibold tracking-[0.24em] text-taupe uppercase md:mt-14">
+          <div className="mt-8 flex items-center justify-center gap-3 text-[11px] font-semibold tracking-[0.24em] text-taupe uppercase md:mt-14 md:justify-start">
             <span className="text-bronze-deep">Step {pad(step + 1)}</span>
             <span className="h-px w-8 bg-line" />
             <span>{pad(N)}</span>
@@ -117,7 +117,7 @@ export default function Process() {
           </ol>
 
           {/* Mobile and tablet: the current step, large */}
-          <div className="relative mt-8 min-h-[190px] md:min-h-[170px] lg:hidden" aria-hidden="true">
+          <div className="mc relative mt-8 min-h-[190px] md:min-h-[170px] lg:hidden" aria-hidden="true">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={step}

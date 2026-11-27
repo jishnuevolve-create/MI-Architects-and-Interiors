@@ -42,7 +42,7 @@ export default function Hero() {
           </motion.div>
         </motion.div>
         <div className="container-x relative order-1 !max-w-[1440px] pt-8 pb-8 md:py-16 lg:flex lg:min-h-[500px] lg:items-center lg:py-14 xl:min-h-[540px]">
-          <div className="max-w-[560px] lg:max-w-[42%] xl:max-w-[520px]">
+          <div className="mc mx-auto max-w-[560px] md:mx-0 lg:max-w-[42%] xl:max-w-[520px]">
             <motion.h1
               className="display text-[40px] font-normal text-charcoal sm:text-[50px] lg:text-[50px] xl:text-[58px]"
               initial={{ opacity: 0, y: 24 }}
@@ -54,7 +54,7 @@ export default function Hero() {
             </motion.h1>
             <motion.span
               aria-hidden="true"
-              className="mt-8 block h-[3px] w-20 origin-left bg-bronze"
+              className="mx-auto mt-8 block h-[3px] w-20 origin-left bg-bronze md:mx-0"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.9, delay: 0.6, ease }}

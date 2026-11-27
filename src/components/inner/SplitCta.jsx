@@ -11,7 +11,7 @@ export default function SplitCta({ title = 'Have a space in mind?', accent = 'Le
     <section aria-label="Start your project" className="py-4 md:py-6">
       <div className="container-x !max-w-[1440px]">
         <div className="grid overflow-hidden rounded-[32px] bg-espresso text-white lg:grid-cols-2">
-          <Reveal className="flex flex-col justify-center p-8 sm:p-12 lg:p-16">
+          <Reveal className="mc flex flex-col justify-center p-8 sm:p-12 lg:p-16">
             <p className="eyebrow !text-[#e2c393] before:!bg-[#e2c393]">Start your project</p>
             <h2 className="display mt-6 text-[34px] leading-[1.1] md:text-[48px]">
               {title} <em className="block text-[#e2c393]">{accent}</em>

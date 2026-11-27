@@ -8,13 +8,15 @@ export default function Footer() {
   return (
     <footer className="mt-10 bg-[#33231a] text-white/75 md:mt-14">
       <div className="container-x pt-20 pb-10 md:pt-24">
-        <p className="display max-w-[900px] text-[32px] leading-[1.15] text-ivory md:text-[48px]">
+        <p className="display mx-auto max-w-[900px] text-center text-[32px] leading-[1.15] text-ivory md:mx-0 md:text-left md:text-[48px]">
           Designed with purpose. <em className="text-[#e2c393]">Built with precision.</em>
         </p>
 
-        <div className="mt-16 grid gap-12 border-t border-white/15 pt-12 md:grid-cols-12">
+        <div className="mc mt-16 grid gap-12 border-t border-white/15 pt-12 md:grid-cols-12">
           <div className="md:col-span-4">
-            <Logo tone="light" />
+            <div className="flex justify-center md:justify-start">
+              <Logo tone="light" />
+            </div>
             <p className="mt-6 max-w-[320px] text-[14.5px] leading-[1.75]">
               Design, build and manufacture: interiors and turnkey fit-out from Ahmedabad, with our own furniture
               factory. Led by {site.founder}.
@@ -49,7 +51,7 @@ export default function Footer() {
                 {site.legalName}<br />{site.address.street}<br />{site.address.city}, {site.address.region} {site.address.postalCode}
               </a>
             </address>
-            <div className="mt-6 flex gap-3">
+            <div className="mt-6 flex justify-center gap-3 md:justify-start">
               <a href={site.instagram.url} target="_blank" rel="noopener noreferrer" aria-label="Instagram"
                 className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 hover:border-white hover:text-white">
                 <InstagramIcon />
@@ -64,7 +66,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-white/15 pt-6 text-[12.5px] text-white/50 md:flex-row md:justify-between">
+        <div className="mt-16 flex flex-col gap-3 border-t border-white/15 pt-6 text-center text-[12.5px] text-white/50 md:flex-row md:justify-between md:text-left">
           <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
           <p>{site.tagline}</p>
         </div>
