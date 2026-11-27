@@ -8,44 +8,6 @@ import { strengths } from '../../data/content.js';
 
 const ease = [0.22, 0.61, 0.36, 1];
 
-/** Large centred statement with the founder's name. */
-export function Manifesto() {
-  const ref = useRef(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 85%', 'end 40%'] });
-  const words = 'We believe a space should be designed with intent and built with the discipline to match it.'.split(' ');
-
-  return (
-    <section ref={ref} className="py-20 md:py-32">
-      <div className="container-x !max-w-[1100px] text-center">
-        <p className="eyebrow justify-center">Our philosophy</p>
-        <p className="display mt-8 text-[30px] leading-[1.3] text-charcoal md:text-[46px] lg:text-[54px]">
-          {words.map((w, i) => (
-            <Word key={i} progress={scrollYProgress} range={[i / words.length, (i + 1) / words.length]} reduce={reduce} accent={i >= 9}>
-              {w}
-            </Word>
-          ))}
-        </p>
-        <Reveal className="mt-10 flex flex-col items-center gap-2">
-          <span className="h-px w-16 bg-bronze" />
-          <span className="mt-3 text-[15px] font-semibold text-charcoal">{site.founder}</span>
-          <span className="text-[13px] text-ink/70">Founder, {site.name}</span>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/** Each word brightens as the statement scrolls into view. */
-function Word({ children, progress, range, reduce, accent }) {
-  const opacity = useTransform(progress, range, [0.18, 1]);
-  return (
-    <motion.span style={reduce ? undefined : { opacity }} className={`mr-[0.25em] inline-block ${accent ? 'text-bronze-deep italic' : ''}`}>
-      {children}
-    </motion.span>
-  );
-}
-
 /** Story: sticky heading and photo collage beside the long-form text. */
 export function Story() {
   return (
