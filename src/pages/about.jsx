@@ -1,6 +1,6 @@
 import { renderPage } from '../lib/renderPage.jsx';
 import InnerHero from '../components/inner/InnerHero.jsx';
-import { ClientWall, Comparison, Numbers, Principles, Story, UnderOneRoof } from '../components/inner/AboutSections.jsx';
+import { ClientWall, Intro, Numbers, Principles, Story, UnderOneRoof } from '../components/inner/AboutSections.jsx';
 import SplitCta from '../components/inner/SplitCta.jsx';
 
 renderPage(
@@ -20,7 +20,7 @@ renderPage(
         { label: 'Sectors', value: '5 sectors served' },
       ]}
     />
-    <Comparison />
+    <Intro />
     <Story />
     <Numbers />
     <Principles />

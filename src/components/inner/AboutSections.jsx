@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { Check, X } from 'lucide-react';
 import Parallax from '../ui/Parallax.jsx';
 import Picture from '../ui/Picture.jsx';
 import Reveal from '../ui/Reveal.jsx';
@@ -9,81 +8,59 @@ import { strengths } from '../../data/content.js';
 
 const ease = [0.22, 0.61, 0.36, 1];
 
-const comparison = [
-  { topic: 'Who designs the space', usual: 'An independent designer', ours: 'Our in-house design studio' },
-  { topic: 'Who makes the furniture', usual: 'An outside carpenter or vendor', ours: 'Our own furniture factory' },
-  { topic: 'Who builds on site', usual: 'A contractor hired separately', ours: 'Our own site teams' },
-  { topic: 'Building services', usual: 'Added later by other trades', ours: 'Planned with the design' },
-  { topic: 'Your point of contact', usual: 'Three or more parties', ours: 'One project team' },
-  { topic: 'When something needs fixing', usual: 'Each party points to another', ours: 'One team is accountable' },
-];
+/** Who we are: a large typographic introduction, text only. */
+export function Intro() {
+  const lines = [
+    <>
+      {site.name} is an interiors and turnkey company where{' '}
+      <em className="text-bronze-deep">design</em>, <em className="text-bronze-deep">build</em> and{' '}
+      <em className="text-bronze-deep">manufacture</em> happen under one roof
+    </>,
+    <>so the space we hand over is the space we drew.</>,
+  ];
 
-/** The usual way vs the MiArq way: why one team for design, build and manufacture matters. */
-export function Comparison() {
   return (
-    <section className="py-14 md:py-20">
+    <section className="py-16 md:py-28">
       <div className="container-x !max-w-[1440px]">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <Reveal>
-            <p className="eyebrow">Why one team</p>
-            <h2 className="display mt-5 text-[34px] md:text-[48px]">
-              One Team <em className="text-bronze-deep">Instead of Three.</em>
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="max-w-[400px] text-[15.5px] leading-[1.75] text-ink">
-              Most interiors pass through a designer, a contractor and a furniture maker. Here is what changes when
-              they are the same company.
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+          <Reveal className="lg:col-span-3">
+            <p className="eyebrow">Who we are</p>
+            <p className="mt-5 text-[13.5px] leading-[1.7] text-ink/70">
+              {site.legalName}
+              <br />
+              {site.address.city}, {site.address.region}
             </p>
           </Reveal>
-        </div>
 
-        <Reveal className="mt-10 overflow-hidden rounded-[28px] border border-line bg-paper md:mt-12">
-          {/* Column heads */}
-          <div className="grid grid-cols-2 md:grid-cols-[1.1fr_1fr_1fr]">
-            <div className="hidden p-6 md:block lg:p-8" />
-            <div className="border-line p-5 md:border-l md:p-6 lg:p-8">
-              <p className="text-[11px] font-semibold tracking-[0.22em] text-taupe uppercase">The usual way</p>
-              <p className="display mt-2 text-[20px] text-ink/70 md:text-[24px]">Separate contractors</p>
-            </div>
-            <div className="relative bg-espresso p-5 text-white md:p-6 lg:p-8">
-              <p className="text-[11px] font-semibold tracking-[0.22em] text-[#e2c393] uppercase">The MiArq way</p>
-              <p className="display mt-2 text-[20px] md:text-[24px]">
-                <span className="md:hidden">One company</span>
-                <span className="hidden md:inline">Design · Build · Manufacture</span>
-              </p>
-            </div>
+          <div className="lg:col-span-9">
+            <h2 className="sr-only">Who we are</h2>
+            <p className="display text-[28px] leading-[1.35] text-charcoal sm:text-[34px] md:text-[42px] xl:text-[50px]">
+              {lines.map((line, i) => (
+                <motion.span
+                  key={i}
+                  className={i === 0 ? '' : 'text-taupe'}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+                  transition={{ duration: 0.9, delay: i * 0.18, ease }}
+                >
+                  {line}
+                  {i === 0 ? ', ' : ''}
+                </motion.span>
+              ))}
+            </p>
+
+            <Reveal delay={0.3} className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-line pt-6 text-[14px] text-ink md:mt-14">
+              <span>
+                Led by <strong className="font-semibold text-charcoal">{site.founder}</strong>
+              </span>
+              <span aria-hidden="true" className="h-1 w-1 rounded-full bg-bronze" />
+              <span>Our own studio, factory and site teams</span>
+              <span aria-hidden="true" className="h-1 w-1 rounded-full bg-bronze" />
+              <span>Residential to healthcare</span>
+            </Reveal>
           </div>
-
-          <ul>
-            {comparison.map((row, i) => (
-              <motion.li
-                key={row.topic}
-                className="grid grid-cols-2 border-t border-line md:grid-cols-[1.1fr_1fr_1fr]"
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '0px 0px -8% 0px' }}
-                transition={{ duration: 0.6, delay: i * 0.06, ease }}
-              >
-                <p className="col-span-2 px-5 pt-5 text-[12px] font-semibold tracking-[0.14em] text-charcoal uppercase md:col-span-1 md:flex md:items-center md:p-6 md:text-[15.5px] md:font-medium md:tracking-normal md:normal-case lg:px-8">
-                  {row.topic}
-                </p>
-                <p className="flex items-start gap-3 px-5 py-4 text-[14.5px] text-ink/70 md:items-center md:border-l md:border-line md:p-6 lg:px-8">
-                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line text-taupe md:mt-0">
-                    <X size={12} strokeWidth={2.2} />
-                  </span>
-                  {row.usual}
-                </p>
-                <p className="flex items-start gap-3 bg-espresso px-5 py-4 text-[14.5px] font-medium text-white md:items-center md:p-6 lg:px-8">
-                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#e2c393] text-espresso md:mt-0">
-                    <Check size={13} strokeWidth={2.6} />
-                  </span>
-                  {row.ours}
-                </p>
-              </motion.li>
-            ))}
-          </ul>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
