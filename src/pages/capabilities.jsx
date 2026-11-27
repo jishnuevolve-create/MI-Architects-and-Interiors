@@ -2,7 +2,6 @@ import { renderPage } from '../lib/renderPage.jsx';
 import PageHero from '../components/PageHero.jsx';
 import CapabilityDetails from '../components/CapabilityDetails.jsx';
 import Manufacturing from '../components/Manufacturing.jsx';
-import Process from '../components/Process.jsx';
 import CtaBand from '../components/CtaBand.jsx';
 
 renderPage(
@@ -17,7 +16,6 @@ renderPage(
     />
     <CapabilityDetails />
     <Manufacturing />
-    <Process />
     <CtaBand />
   </>,
 );
