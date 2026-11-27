@@ -36,11 +36,11 @@ export function Intro() {
   ];
 
   return (
-    <section className="relative overflow-hidden py-20 md:py-32">
+    <section className="relative overflow-hidden pt-20 pb-[30vw] md:pt-32 md:pb-[17vw]">
       {/* Watermark */}
       <span
         aria-hidden="true"
-        className="display pointer-events-none absolute -right-6 bottom-[-0.18em] text-[34vw] leading-none text-transparent select-none [-webkit-text-stroke:1px_var(--color-line)] md:text-[22vw]"
+        className="display pointer-events-none absolute right-[4vw] bottom-6 text-[24vw] leading-[0.9] text-transparent select-none [-webkit-text-stroke:1px_var(--color-line)] md:bottom-8 md:text-[15vw] xl:text-[14vw]"
       >
         MiArq
       </span>
